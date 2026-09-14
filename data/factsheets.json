@@ -1,0 +1,3059 @@
+{
+  "Azzurra-Voice": {
+    "architecture_family": "autoregressive multimodal transformer",
+    "acoustic_model": "dual-transformer (semantic backbone + smaller audio decoder) built on Sesame CSM-1B",
+    "vocoder_or_codec": "Mimi neural codec (Kyutai)",
+    "intermediate_representation": "RVQ tokens",
+    "sample_rate_hz": null,
+    "languages": [
+      "it"
+    ],
+    "training_data": "thousands of hours of diverse Italian speech with regional accents and conversational patterns",
+    "speaker_config": "multi",
+    "distinctive_artifacts": [
+      "streaming-compression artifacts",
+      "phase distortion in high frequencies"
+    ],
+    "use_cases": [
+      "cloud TTS API",
+      "expressive Italian synthesis"
+    ],
+    "notes": "Cartesia-developed, built atop Sesame CSM-1B architecture; cloud-based closed-source"
+  },
+  "CaroTTS": {
+    "architecture_family": "lightweight hybrid (DSP + neural)",
+    "acoustic_model": "phoneme-level processing with basic neural acoustic components",
+    "vocoder_or_codec": "simple low-bitrate neural vocoder",
+    "intermediate_representation": "phoneme-aligned acoustic features",
+    "sample_rate_hz": null,
+    "languages": [
+      "unknown (single)"
+    ],
+    "training_data": "small curated studio recordings",
+    "speaker_config": "single",
+    "distinctive_artifacts": [
+      "quantization noise from lower-bitrate vocoder",
+      "rigid prosodic transitions",
+      "prosodic smoothing"
+    ],
+    "use_cases": [
+      "embedded/resource-constrained TTS"
+    ],
+    "notes": "no zero-shot cloning; no large-scale neural architecture"
+  },
+  "Cartesia.ai (Sonic-3)": {
+    "architecture_family": "state-space model (SSM), non-autoregressive",
+    "acoustic_model": "SSM-based with flow-matching / latent-diffusion acoustic decoding",
+    "vocoder_or_codec": "proprietary streaming neural codec",
+    "intermediate_representation": "latent codec tokens (chunk-based)",
+    "sample_rate_hz": null,
+    "languages": [
+      "multilingual"
+    ],
+    "training_data": "large-scale proprietary multilingual corpus (40+ languages)",
+    "speaker_config": "zero-shot clone (10-second reference)",
+    "distinctive_artifacts": [
+      "high-frequency smearing from fast-step sampling",
+      "streaming chunk-boundary artifacts"
+    ],
+    "use_cases": [
+      "real-time voice agents",
+      "ultra-low-latency streaming"
+    ],
+    "notes": "~90ms time-to-first-audio; supports laughter and emotion; closed-source cloud API"
+  },
+  "Chatterbox": {
+    "architecture_family": "autoregressive transformer (Llama backbone)",
+    "acoustic_model": "0.5B-parameter Llama backbone with S3Tokenizer for speech tokenisation",
+    "vocoder_or_codec": "HiFT-GAN",
+    "intermediate_representation": "S3 speech tokens",
+    "sample_rate_hz": null,
+    "languages": [
+      "en"
+    ],
+    "training_data": "English multi-speaker corpora",
+    "speaker_config": "zero-shot clone (short reference)",
+    "distinctive_artifacts": [
+      "slightly robotic prosody",
+      "mechanical resonance in sustained vowels",
+      "pitch quantisation"
+    ],
+    "use_cases": [
+      "expressive TTS with emotion exaggeration",
+      "paralinguistic tagging (laughter, sighs, coughs)"
+    ],
+    "notes": "open-source by Resemble AI; built-in PerTh watermarking; single emotion-exaggeration parameter"
+  },
+  "Chatterbox Multilingual": {
+    "architecture_family": "autoregressive transformer (Llama backbone)",
+    "acoustic_model": "0.5B-parameter Llama backbone with S3Tokenizer and shared phoneme embedding space across 23 languages",
+    "vocoder_or_codec": "HiFT-GAN (adversarial)",
+    "intermediate_representation": "S3 speech tokens",
+    "sample_rate_hz": null,
+    "languages": [
+      "multilingual (23 languages: ar, da, de, el, en, es, fi, fr, he, hi, it, ja, ko, ms, nl, no, pl, pt, ru, sv, sw, tr, zh)"
+    ],
+    "training_data": "multilingual multi-speaker corpora",
+    "speaker_config": "zero-shot clone with language ID",
+    "distinctive_artifacts": [
+      "cross-lingual phonetic bleed",
+      "atypical accenting",
+      "high-frequency GAN artifacts"
+    ],
+    "use_cases": [
+      "multilingual expressive TTS with paralinguistic tagging"
+    ],
+    "notes": "multilingual extension of Chatterbox; retains emotion exaggeration and paralinguistic tags"
+  },
+  "DeepGram": {
+    "architecture_family": "proprietary autoregressive transformer",
+    "acoustic_model": "undisclosed proprietary neural architecture optimised for streaming",
+    "vocoder_or_codec": "proprietary neural vocoder",
+    "intermediate_representation": "undisclosed",
+    "sample_rate_hz": null,
+    "languages": [
+      "multilingual"
+    ],
+    "training_data": "large-scale proprietary multi-speaker multi-language corpus",
+    "speaker_config": "multi (preset voice library)",
+    "distinctive_artifacts": [
+      "mel-spectrogram over-smoothing",
+      "proprietary codec watermarking traces"
+    ],
+    "use_cases": [
+      "low-latency streaming TTS",
+      "voice agents",
+      "enterprise cloud API"
+    ],
+    "notes": "architecture details not publicly disclosed; emphasises real-time throughput and reliability"
+  },
+  "Edge-TTS": {
+    "architecture_family": "encoder-decoder transformer (modified Tacotron-style)",
+    "acoustic_model": "Microsoft Azure neural TTS encoder-decoder trained on professional recordings",
+    "vocoder_or_codec": "HiFi-Net neural vocoder",
+    "intermediate_representation": "mel-spectrogram",
+    "sample_rate_hz": null,
+    "languages": [
+      "multilingual (100+ locales, 400+ voices)"
+    ],
+    "training_data": "large corpora of professional studio recordings",
+    "speaker_config": "multi (400+ preset voices)",
+    "distinctive_artifacts": [
+      "over-polished fricatives",
+      "occasional unnatural intonation curves",
+      "very clean audio signature"
+    ],
+    "use_cases": [
+      "cloud TTS via Edge browser API",
+      "SSML-controlled speech (pitch, rate, volume, emphasis)"
+    ],
+    "notes": "Microsoft Azure commercial service; accessed through Edge speech synthesis API"
+  },
+  "FireRedTTS-2.0": {
+    "architecture_family": "dual-transformer autoregressive over discrete codec tokens",
+    "acoustic_model": "decoder-only backbone transformer predicts first-layer codec tokens; smaller decoder transformer completes subsequent token layers conditioned on backbone hidden states; interleaved text-speech format at 12.5 Hz token rate",
+    "vocoder_or_codec": "12.5 Hz streaming speech tokenizer (semantic + acoustic); HiFi-GAN-class waveform decoder",
+    "intermediate_representation": "interleaved text-speech discrete tokens",
+    "sample_rate_hz": null,
+    "languages": [
+      "multilingual (en, zh, ja, ko, fr, de, ru)"
+    ],
+    "training_data": "1.1M hours monologue + 300K hours multi-speaker dialogue",
+    "speaker_config": "zero-shot cross-lingual clone with context-aware prosody",
+    "distinctive_artifacts": [
+      "codec quantisation artifacts (12.5 Hz token rate)",
+      "low-latency streaming first-packet onset",
+      "occasional dual-decoder token-layer alignment glitches"
+    ],
+    "use_cases": [
+      "long-form streaming dialogue",
+      "multi-speaker generation",
+      "code-switching"
+    ],
+    "notes": "sub-100ms first-packet latency; FireRed team"
+  },
+  "FishTTS": {
+    "architecture_family": "autoregressive transformer (Qwen3 LLM backbone)",
+    "acoustic_model": "Qwen3 backbone (4B or 0.5B S1-mini variant) as native multimodal model with dual-autoregressive token prediction and VITS-style acoustic decoder",
+    "vocoder_or_codec": "Firefly-GAN (FFGAN) vocoder integrating GFSQ over a 10-codebook RVQ codec (~21 Hz frame rate)",
+    "intermediate_representation": "discrete semantic + acoustic tokens",
+    "sample_rate_hz": null,
+    "languages": [
+      "multilingual (13 languages)"
+    ],
+    "training_data": "curated studio speech recordings; RLHF fine-tuning from human feedback",
+    "speaker_config": "zero-shot clone (30–45 s reference)",
+    "distinctive_artifacts": [
+      "token-repetition hallucinations",
+      "codec degradation"
+    ],
+    "use_cases": [
+      "expressive storytelling with 50+ inline emotion markers",
+      "interactive applications"
+    ],
+    "notes": "also known as OpenAudio-S1; developed by Fish Audio"
+  },
+  "Higgs-Audio-V2": {
+    "architecture_family": "LLM + audio-extension multimodal (Llama 3B backbone + DualFFN audio head, ~5.8B total)",
+    "acoustic_model": "Llama 3B backbone augmented with DualFFN audio branch; HiggsCodec discretizes and decodes audio via a non-diffusion encoder/decoder (no flow-matching step)",
+    "vocoder_or_codec": "HiggsCodec (25 FPS unified semantic-acoustic tokenizer; 320x downsampling, non-diffusion encoder/decoder)",
+    "intermediate_representation": "unified audio tokens",
+    "sample_rate_hz": null,
+    "languages": [
+      "multilingual"
+    ],
+    "training_data": "AudioVerse: >10M hours of audio plus diverse text corpora",
+    "speaker_config": "zero-shot clone without explicit emotion tokens",
+    "distinctive_artifacts": [
+      "subtle white-noise traces in silent regions from diffusion sampling",
+      "high-fidelity spectrum"
+    ],
+    "use_cases": [
+      "multi-speaker dialogue",
+      "narration with automatic prosody",
+      "melodic humming",
+      "speech with background music"
+    ],
+    "notes": "Boson AI audio foundation model; cross-attention DualFFN couples LLM to acoustic tokens"
+  },
+  "Index-TTS-1.5": {
+    "architecture_family": "autoregressive transformer (GPT-style, XTTS/Tortoise lineage)",
+    "acoustic_model": "GPT-style autoregressive decoder predicting mel-spectrogram codes, conditioned by a Conformer speaker encoder",
+    "vocoder_or_codec": "BigVGAN2",
+    "intermediate_representation": "mel-spectrogram codes",
+    "sample_rate_hz": null,
+    "languages": [
+      "multilingual (zh, en)"
+    ],
+    "training_data": "tens of thousands of hours of Chinese and English speech",
+    "speaker_config": "zero-shot clone (5-10 s reference)",
+    "distinctive_artifacts": [
+      "mel over-smoothing",
+      "pitch quantization",
+      "slightly flattened intonation contours"
+    ],
+    "use_cases": [
+      "bilingual Chinese/English synthesis",
+      "voice cloning with punctuation-driven pause control"
+    ],
+    "notes": "Bilibili AI Platform; character-pinyin hybrid modeling for Chinese pronunciation"
+  },
+  "Index-TTS-2.0": {
+    "architecture_family": "cascaded autoregressive + non-autoregressive flow-matching",
+    "acoustic_model": "three-stage pipeline: autoregressive Transformer T2S for semantic tokens, DiT-based flow-matching S2M for mel-spectrogram",
+    "vocoder_or_codec": "BigVGAN2",
+    "intermediate_representation": "semantic tokens -> mel-spectrogram",
+    "sample_rate_hz": null,
+    "languages": [
+      "multilingual (zh, en)"
+    ],
+    "training_data": "55,000 h bilingual (30K zh + 25K en) plus 135 h emotional speech",
+    "speaker_config": "zero-shot clone with disentangled timbre/emotion prompts",
+    "distinctive_artifacts": [
+      "non-autoregressive duration prediction rigidity",
+      "subtle phase artifacts",
+      "reduced oversmoothing vs 1.5"
+    ],
+    "use_cases": [
+      "expressive zero-shot cloning",
+      "emotion-controlled synthesis",
+      "duration-controlled generation"
+    ],
+    "notes": "Bilibili AI Platform; QwenEmotion 0.6B (distilled from DeepSeek-R1) drives seven-class emotion inference"
+  },
+  "IndicF5": {
+    "architecture_family": "non-autoregressive flow-matching (F5-TTS lineage)",
+    "acoustic_model": "Diffusion Transformer (DiT) backbone with ConvNeXt V2 text encoder; padding-and-masking training",
+    "vocoder_or_codec": "Vocos",
+    "intermediate_representation": "mel-spectrogram",
+    "sample_rate_hz": null,
+    "languages": [
+      "multilingual (Indic: hi, ta, te, bn, mr, and others)"
+    ],
+    "training_data": "curated Indic multilingual speech corpora across major Indian languages",
+    "speaker_config": "zero-shot clone for Indic speakers",
+    "distinctive_artifacts": [
+      "diffusion-based noise in low-resource phonemes",
+      "subtle phase artifacts",
+      "temporal over-smoothing"
+    ],
+    "use_cases": [
+      "multilingual Indic TTS",
+      "code-switching across Indian languages"
+    ],
+    "notes": "fine-tuned adaptation of F5-TTS; retains DiT + ConvNeXt V2 core"
+  },
+  "Indri-TTS-0.1": {
+    "architecture_family": "autoregressive transformer (GPT-2 based)",
+    "acoustic_model": "GPT-2 decoder (124M or 350M variants) generating discrete audio tokens",
+    "vocoder_or_codec": "Mimi neural codec (Kyutai); 12.5 Hz frame rate with multi-layer RVQ",
+    "intermediate_representation": "discrete audio tokens",
+    "sample_rate_hz": null,
+    "languages": [
+      "multilingual (en + one additional)"
+    ],
+    "training_data": "small-scale multi-speaker corpora (under-trained early release)",
+    "speaker_config": "zero-shot clone (<5 s reference)",
+    "distinctive_artifacts": [
+      "unstable prosody",
+      "occasional alignment failures",
+      "mechanical resonance typical of under-trained AR models"
+    ],
+    "use_cases": [
+      "ultra-low-latency on-device TTS",
+      "edge deployment via GGUF quantisation"
+    ],
+    "notes": "11mlabs; up to 400 tok/s on RTX6000Ada, <20 ms time-to-first-token"
+  },
+  "Kani-TTS-370M": {
+    "architecture_family": "two-stage autoregressive transformer + neural codec",
+    "acoustic_model": "LiquidAI LFM2-350M backbone producing semantic+acoustic tokens",
+    "vocoder_or_codec": "NVIDIA NanoCodec",
+    "intermediate_representation": "compressed audio tokens",
+    "sample_rate_hz": null,
+    "languages": [
+      "multilingual"
+    ],
+    "training_data": "mixed public multi-speaker speech corpora",
+    "speaker_config": "multi",
+    "distinctive_artifacts": [
+      "neural-codec quantisation noise",
+      "occasional breath/non-speech hallucinations",
+      "pitch quantisation"
+    ],
+    "use_cases": [
+      "affordable-server TTS",
+      "edge deployment"
+    ],
+    "notes": "nineninesix.ai; Apache 2.0; ~1 s to synthesize 15 s of audio; top-p/temperature/repetition-penalty sampling"
+  },
+  "Kartoffelbox": {
+    "architecture_family": "autoregressive transformer (Llama backbone, Chatterbox fine-tune)",
+    "acoustic_model": "Chatterbox 0.5B Llama T3 module retrained on German; S3Tokenizer for speech tokenisation",
+    "vocoder_or_codec": "HiFT-GAN",
+    "intermediate_representation": "S3 speech tokens",
+    "sample_rate_hz": null,
+    "languages": [
+      "de"
+    ],
+    "training_data": "~600K German speech samples",
+    "speaker_config": "zero-shot clone (short reference)",
+    "distinctive_artifacts": [
+      "metallic vocoder reverberation",
+      "rigid sentence-level intonation",
+      "prosodic smoothing"
+    ],
+    "use_cases": [
+      "expressive German TTS",
+      "voice cloning with paralinguistic tagging"
+    ],
+    "notes": "community fine-tune of Chatterbox; CC BY-NC-ND; retains emotion-exaggeration parameter"
+  },
+  "Kitten-TTS-Nano-0.1": {
+    "architecture_family": "lightweight neural TTS (heavily quantised)",
+    "acoustic_model": "compact 15M-parameter acoustic network; mel-spectrogram prediction",
+    "vocoder_or_codec": "small neural vocoder bundled in the 25 MB int8 ONNX package",
+    "intermediate_representation": "mel-spectrogram",
+    "sample_rate_hz": null,
+    "languages": [
+      "en"
+    ],
+    "training_data": "curated English studio speech",
+    "speaker_config": "multi (8 preset voices: 4 male, 4 female)",
+    "distinctive_artifacts": [
+      "heavy int8-quantisation noise",
+      "significant phase distortion",
+      "audible quantisation steps"
+    ],
+    "use_cases": [
+      "Raspberry Pi / wearable / low-end phone TTS",
+      "offline CPU-only deployment"
+    ],
+    "notes": "KittenML/Stellon Labs; ONNX CPU runtime; 8-9x faster than real-time"
+  },
+  "Kitten-TTS-Nano-0.2": {
+    "architecture_family": "lightweight neural TTS (heavily quantised)",
+    "acoustic_model": "refined 15M-parameter acoustic network with improved prosody over 0.1",
+    "vocoder_or_codec": "small neural vocoder (improved phase reconstruction over 0.1)",
+    "intermediate_representation": "mel-spectrogram",
+    "sample_rate_hz": null,
+    "languages": [
+      "en"
+    ],
+    "training_data": "curated English studio speech",
+    "speaker_config": "multi (8 preset voices)",
+    "distinctive_artifacts": [
+      "residual int8-quantisation noise",
+      "reduced but audible phase distortion",
+      "subtle temporal over-smoothing"
+    ],
+    "use_cases": [
+      "edge-device English TTS",
+      "offline CPU-only deployment"
+    ],
+    "notes": "KittenML; part of a family with Micro (40M) and Mini (80M) variants; ~25 MB ONNX"
+  },
+  "Kyutai-TTS": {
+    "architecture_family": "autoregressive transformer over neural codec tokens",
+    "acoustic_model": "transformer generating Mimi codec tokens at 12.5 Hz",
+    "vocoder_or_codec": "Mimi streaming neural codec",
+    "intermediate_representation": "Mimi RVQ tokens",
+    "sample_rate_hz": null,
+    "languages": [
+      "en"
+    ],
+    "training_data": "multi-speaker speech data curated by Kyutai",
+    "speaker_config": "multi (preset / contributed voices only, no arbitrary zero-shot clone)",
+    "distinctive_artifacts": [
+      "codec-induced high-frequency constraints",
+      "occasional semantic babble",
+      "streaming-chunk artifacts"
+    ],
+    "use_cases": [
+      "on-device CPU TTS",
+      "low-latency real-time applications"
+    ],
+    "notes": "Kyutai Labs (Pocket TTS); minimal dependencies; no third-party voice cloning"
+  },
+  "Llasa-1B": {
+    "architecture_family": "autoregressive transformer (Llama decoder-only, 1B parameters)",
+    "acoustic_model": "Llama-style decoder trained as next-token predictor over a unified text-speech token space",
+    "vocoder_or_codec": "XCodec2 neural audio codec",
+    "intermediate_representation": "XCodec2 discrete speech tokens",
+    "sample_rate_hz": null,
+    "languages": [
+      "multilingual"
+    ],
+    "training_data": "Emilia dataset (large-scale multilingual speech)",
+    "speaker_config": "zero-shot clone (reference speech tokens)",
+    "distinctive_artifacts": [
+      "codec-induced high-frequency noise",
+      "over-regularised spectral envelopes"
+    ],
+    "use_cases": [
+      "LM-style scalable TTS",
+      "zero-shot voice cloning"
+    ],
+    "notes": "demonstrates LM-scaling benefits for TTS; decoder-only next-token formulation"
+  },
+  "Llasa-1B-Multilingual": {
+    "architecture_family": "autoregressive transformer (Llama decoder-only, 1B)",
+    "acoustic_model": "Llama-style decoder as next-token predictor over unified text-speech tokens, extended to multilingual training",
+    "vocoder_or_codec": "XCodec2 neural audio codec",
+    "intermediate_representation": "XCodec2 discrete speech tokens",
+    "sample_rate_hz": null,
+    "languages": [
+      "multilingual"
+    ],
+    "training_data": "multilingual portions of the Emilia dataset",
+    "speaker_config": "zero-shot clone with cross-lingual support",
+    "distinctive_artifacts": [
+      "foreign-phoneme bleed in cross-lingual clones",
+      "discrete-codec quantisation artifacts",
+      "pitch quantisation"
+    ],
+    "use_cases": [
+      "cross-lingual zero-shot cloning",
+      "code-switching"
+    ],
+    "notes": "multilingual extension of Llasa-1B; same XCodec2 + Llama backbone"
+  },
+  "Llasa-3B": {
+    "architecture_family": "autoregressive transformer (Llama decoder-only, 3B)",
+    "acoustic_model": "scaled Llama decoder predicting XCodec2 tokens with improved prosodic modelling over 1B",
+    "vocoder_or_codec": "XCodec2 neural audio codec (adversarial decoder)",
+    "intermediate_representation": "XCodec2 discrete speech tokens",
+    "sample_rate_hz": null,
+    "languages": [
+      "multilingual"
+    ],
+    "training_data": "large-scale curated speech corpora",
+    "speaker_config": "zero-shot clone",
+    "distinctive_artifacts": [
+      "XCodec2 quantisation noise",
+      "vocoder-related high-frequency noise"
+    ],
+    "use_cases": [
+      "higher-quality zero-shot cloning",
+      "complex-prosody synthesis"
+    ],
+    "notes": "3B scale variant of the Llasa family; same codec/backbone as 1B"
+  },
+  "Llasa-8B": {
+    "architecture_family": "autoregressive transformer (Llama decoder-only, 8B)",
+    "acoustic_model": "8B Llama decoder over unified text-speech token space; largest Llasa variant",
+    "vocoder_or_codec": "XCodec2 neural audio codec",
+    "intermediate_representation": "XCodec2 discrete speech tokens",
+    "sample_rate_hz": null,
+    "languages": [
+      "multilingual"
+    ],
+    "training_data": "extensive multi-speaker multilingual speech data",
+    "speaker_config": "zero-shot clone",
+    "distinctive_artifacts": [
+      "distinct discrete token-reconstruction signature",
+      "prosodic smoothing",
+      "reduced pitch variability"
+    ],
+    "use_cases": [
+      "highest-quality Llasa-family synthesis",
+      "complex zero-shot expressivity"
+    ],
+    "notes": "compute-heavy flagship of the Llasa family; same XCodec2 + Llama formulation"
+  },
+  "Mars5": {
+    "architecture_family": "two-stage coarse AR + fine non-AR transformer",
+    "acoustic_model": "coarse autoregressive stage predicting semantic tokens conditioned on reference embeddings, then a fine non-AR stage refining acoustic detail",
+    "vocoder_or_codec": "Vocos (over EnCodec tokens) — AR/NAR models predict 8 EnCodec codebook entries; Vocos converts them to waveform (not the standard EnCodec decoder)",
+    "intermediate_representation": "discrete EnCodec tokens (semantic + acoustic)",
+    "sample_rate_hz": null,
+    "languages": [
+      "en"
+    ],
+    "training_data": "mixed public speech corpora",
+    "speaker_config": "zero-shot clone (short reference)",
+    "distinctive_artifacts": [
+      "over-emphasised breaths during emotional shifts",
+      "slight phase smearing",
+      "over-regularised spectral envelopes"
+    ],
+    "use_cases": [
+      "zero-shot voice cloning with prosody transfer",
+      "style-reproducing synthesis"
+    ],
+    "notes": "Camb.ai; explicit focus on tonal/prosodic fidelity beyond timbre"
+  },
+  "Marvis-TTS": {
+    "architecture_family": "dual-transformer multimodal (Sesame CSM lineage)",
+    "acoustic_model": "250M multimodal backbone predicting zeroth RVQ codebook over interleaved text-audio; 60M audio decoder generates remaining 31 codebooks",
+    "vocoder_or_codec": "Mimi neural codec (Kyutai)",
+    "intermediate_representation": "Mimi RVQ tokens",
+    "sample_rate_hz": null,
+    "languages": [
+      "multilingual (en, fr, de)"
+    ],
+    "training_data": "Amphion/Emilia-Dataset fine-tuning from Sesame CSM-1B",
+    "speaker_config": "zero-shot clone",
+    "distinctive_artifacts": [
+      "lacks fine-grained HF detail of larger foundation models",
+      "Mimi codec HF constraints"
+    ],
+    "use_cases": [
+      "on-device streaming TTS",
+      "real-time conversational agents"
+    ],
+    "notes": "~500 MB quantised; processes full text context without regex chunking"
+  },
+  "MatchaTTS": {
+    "architecture_family": "non-autoregressive optimal-transport flow-matching",
+    "acoustic_model": "transformer text encoder + U-Net 1D-conv decoder trained with OT-CFM; duration predictor for alignment; 2-4 sampling steps",
+    "vocoder_or_codec": "HiFi-GAN (or equivalent neural vocoder)",
+    "intermediate_representation": "mel-spectrogram",
+    "sample_rate_hz": null,
+    "languages": [
+      "en"
+    ],
+    "training_data": "LJSpeech and other single/multi-speaker corpora",
+    "speaker_config": "single / multi (dataset-dependent)",
+    "distinctive_artifacts": [
+      "slight oversmoothing in unvoiced consonants",
+      "pitch quantisation"
+    ],
+    "use_cases": [
+      "fast non-autoregressive TTS",
+      "research baseline for flow-matching"
+    ],
+    "notes": "OT-CFM formulation enables 2-4 step sampling; HiFi-GAN vocoded output"
+  },
+  "Maya1 TTS": {
+    "architecture_family": "neural TTS (speaker-conditioned encoder-decoder)",
+    "acoustic_model": "text encoder + duration predictor + speaker-conditioned acoustic decoder",
+    "vocoder_or_codec": "SNAC neural codec (Llama-3B emits SNAC audio tokens; CNN-based detokenizer reconstructs waveform at 24 kHz)",
+    "intermediate_representation": "mel-spectrogram",
+    "sample_rate_hz": null,
+    "languages": [
+      "multilingual (including underrepresented languages)"
+    ],
+    "training_data": "diverse multilingual speech corpora",
+    "speaker_config": "multi with voice cloning",
+    "distinctive_artifacts": [
+      "unnatural lack of acoustic noise floor",
+      "slight mechanical resonance",
+      "vocoder-related high-frequency noise"
+    ],
+    "use_cases": [
+      "multilingual TTS for underserved languages",
+      "accessibility-focused synthesis"
+    ],
+    "notes": "proprietary; emphasis on democratising TTS for underrepresented languages"
+  },
+  "MegaTTS3": {
+    "architecture_family": "latent diffusion transformer (DiT)",
+    "acoustic_model": "multi-stage: Qwen2.5-0.5B G2P + MFA-pseudo-labelled aligner + sparse-alignment-enhanced DiT for acoustic latents",
+    "vocoder_or_codec": "WaveVAE decoder",
+    "intermediate_representation": "acoustic latents (DiT-denoised)",
+    "sample_rate_hz": null,
+    "languages": [
+      "multilingual (zh, en)"
+    ],
+    "training_data": "large-scale multi-domain speech corpora",
+    "speaker_config": "zero-shot clone with controllable pronunciation/speaker-similarity knobs",
+    "distinctive_artifacts": [
+      "acoustic-environment leakage from reference prompt",
+      "prosodic smoothing",
+      "reduced pitch variability"
+    ],
+    "use_cases": [
+      "controllable zero-shot cloning",
+      "accent-preserving emotional synthesis"
+    ],
+    "notes": "ByteDance + Zhejiang University; ~0.45B parameters in core generative DiT"
+  },
+  "MeloTTS": {
+    "architecture_family": "VITS-style end-to-end (VAE + flows + adversarial training)",
+    "acoustic_model": "variational autoencoder with normalizing flows; language-specific phonemizer/G2P frontends",
+    "vocoder_or_codec": "integrated HiFi-GAN-class decoder",
+    "intermediate_representation": "linear/mel spectrogram (latent)",
+    "sample_rate_hz": null,
+    "languages": [
+      "multilingual (en with 4 accents, es, fr, zh, ja, ko)"
+    ],
+    "training_data": "mixed public multi-speaker corpora",
+    "speaker_config": "multi (preset speakers; no zero-shot clone)",
+    "distinctive_artifacts": [
+      "adversarial-vocoder artifacts in rapid speech",
+      "vocoder HF noise"
+    ],
+    "use_cases": [
+      "real-time CPU TTS",
+      "multilingual preset-voice synthesis"
+    ],
+    "notes": "MyShell.ai; split-model architecture for efficient CPU inference"
+  },
+  "Metavoice-1B": {
+    "architecture_family": "two-stage autoregressive transformer",
+    "acoustic_model": "GPT-style AR transformer for semantic tokens, followed by a non-causal transformer for acoustic tokens",
+    "vocoder_or_codec": "Multi-band diffusion (over EnCodec 6 kbps tokens) + DeepFilterNet artifact removal; NOT the standard EnCodec decoder",
+    "intermediate_representation": "EnCodec discrete tokens (semantic + acoustic)",
+    "sample_rate_hz": null,
+    "languages": [
+      "en"
+    ],
+    "training_data": "curated studio speech corpora",
+    "speaker_config": "zero-shot clone (10-30 s reference)",
+    "distinctive_artifacts": [
+      "EnCodec quantisation artifacts",
+      "occasional hallucinated room acoustics",
+      "vocoder HF noise"
+    ],
+    "use_cases": [
+      "zero-shot cloning with prosody transfer",
+      "conversation-style synthesis"
+    ],
+    "notes": "1.2B parameters; emphasis on emotional prosody transfer"
+  },
+  "Microsoft VibeVoice 1.5B": {
+    "architecture_family": "autoregressive transformer",
+    "acoustic_model": "1.5B autoregressive transformer predicting neural-codec speech tokens with speaker conditioning",
+    "vocoder_or_codec": "neural audio codec (decoder paired with the tokenizer)",
+    "intermediate_representation": "discrete neural audio tokens",
+    "sample_rate_hz": null,
+    "languages": [
+      "multilingual (en, zh)"
+    ],
+    "training_data": "large-scale multilingual speech collections",
+    "speaker_config": "multi (up to 4 consistent dialogue speakers, no overlap)",
+    "distinctive_artifacts": [
+      "detectable continuous HF harmonic traces",
+      "over-regularised spectral envelopes"
+    ],
+    "use_cases": [
+      "multi-speaker conversational synthesis",
+      "long-passage dialogue with turn-taking"
+    ],
+    "notes": "Microsoft Research; research-grade release with audible disclaimers and watermarking"
+  },
+  "Microsoft VibeVoice Large": {
+    "architecture_family": "autoregressive transformer",
+    "acoustic_model": "scaled VibeVoice AR transformer with increased capacity for prosody and speaker differentiation",
+    "vocoder_or_codec": "neural audio codec with adversarial decoder",
+    "intermediate_representation": "discrete neural audio tokens",
+    "sample_rate_hz": null,
+    "languages": [
+      "multilingual (en, zh)"
+    ],
+    "training_data": "curated studio speech plus large-scale multilingual corpora",
+    "speaker_config": "multi (consistent multi-speaker dialogue)",
+    "distinctive_artifacts": [
+      "codec quantisation noise floor",
+      "prosodic smoothing",
+      "reduced pitch variability"
+    ],
+    "use_cases": [
+      "near-flawless multi-speaker dialogue synthesis",
+      "long-form bilingual conversations"
+    ],
+    "notes": "Microsoft Research; shares VibeVoice safety features (watermarking, disclaimers)"
+  },
+  "MiniCPM-o-2.6": {
+    "architecture_family": "omni-modal LLM with integrated speech generation",
+    "acoustic_model": "MiniCPM LLM backbone extended with audio encoder/decoder modules producing speech tokens end-to-end",
+    "vocoder_or_codec": "neural audio decoder (GAN-based waveform)",
+    "intermediate_representation": "speech tokens integrated into the LLM vocabulary",
+    "sample_rate_hz": null,
+    "languages": [
+      "multilingual"
+    ],
+    "training_data": "curated multimodal text-image-audio corpora",
+    "speaker_config": "multi (contextual speech generation)",
+    "distinctive_artifacts": [
+      "AR-token repetitions",
+      "hallucinated breaths",
+      "over-regularised spectral envelopes"
+    ],
+    "use_cases": [
+      "end-to-end omni-modal conversational agents",
+      "edge-deployable multimodal chat"
+    ],
+    "notes": "OpenBMB/Tsinghua; compact multimodal LLM with TTS capability"
+  },
+  "NVidia Magpie-TTS Multilingual": {
+    "architecture_family": "autoregressive transformer over discrete audio codec tokens",
+    "acoustic_model": "non-autoregressive transformer encoder (6 causal layers) + autoregressive transformer decoder (12 causal layers) with cross-attention; optional local transformer refinement; multi-codebook prediction (~8 codebooks); trained with classifier-free guidance and GRPO",
+    "vocoder_or_codec": "neural audio codec decoder (multi-codebook discrete-token-to-waveform)",
+    "intermediate_representation": "discrete audio codec tokens (multi-codebook)",
+    "sample_rate_hz": null,
+    "languages": [
+      "multilingual"
+    ],
+    "training_data": "multilingual multi-speaker corpora",
+    "speaker_config": "zero-shot clone with cross-lingual synthesis",
+    "distinctive_artifacts": [
+      "codec quantisation artifacts",
+      "very clean audio signature",
+      "occasional codec ringing on high-frequency content"
+    ],
+    "use_cases": [
+      "high-throughput GPU production deployment",
+      "cross-lingual zero-shot cloning"
+    ],
+    "notes": "NVIDIA Research; trained/served via the NeMo framework; ~357M params (multilingual variant); 9 languages supported."
+  },
+  "Nari Dia-1.6B": {
+    "architecture_family": "autoregressive transformer",
+    "acoustic_model": "1.6B AR transformer processing [S1]/[S2] speaker-tagged dialogue to produce discrete audio tokens",
+    "vocoder_or_codec": "adversarial neural vocoder tied to the tokenizer",
+    "intermediate_representation": "discrete audio tokens",
+    "sample_rate_hz": null,
+    "languages": [
+      "en"
+    ],
+    "training_data": "Emilia dataset plus curated dialogue data",
+    "speaker_config": "multi (dialogue-tagged speakers with nonverbal cues)",
+    "distinctive_artifacts": [
+      "phase misalignments in complex transients",
+      "pitch quantisation",
+      "discrete-tokenizer artifacts"
+    ],
+    "use_cases": [
+      "expressive multi-speaker dialogue generation",
+      "scripted conversation with laughter/sighs/coughs"
+    ],
+    "notes": "Nari Labs; dialogue-first design with inline nonverbal tags"
+  },
+  "Nari Dia2": {
+    "architecture_family": "streaming autoregressive transformer",
+    "acoustic_model": "1B or 2B AR transformer with streaming decoding from the first input tokens; retains [S1]/[S2] dialogue tags",
+    "vocoder_or_codec": "neural waveform decoder tied to the tokenizer",
+    "intermediate_representation": "discrete audio tokens",
+    "sample_rate_hz": null,
+    "languages": [
+      "en"
+    ],
+    "training_data": "curated dialogue speech corpora",
+    "speaker_config": "multi (dialogue tags with improved speaker consistency)",
+    "distinctive_artifacts": [
+      "high-frequency roll-off from token-based generation",
+      "vocoder HF noise"
+    ],
+    "use_cases": [
+      "real-time speech-to-speech pipelines",
+      "podcasts / audio dramas / game dialogue"
+    ],
+    "notes": "Nari Labs; up to ~2-minute outputs per run; 1B and 2B variants"
+  },
+  "NeuTTS-Air": {
+    "architecture_family": "non-autoregressive transformer with neural codec",
+    "acoustic_model": "transformer acoustic model paired with a distilled, low-latency decoder; targets ~200 ms synthesis latency",
+    "vocoder_or_codec": "neural audio codec (HiFi-GAN-class decoder)",
+    "intermediate_representation": "discrete codec tokens",
+    "sample_rate_hz": null,
+    "languages": [
+      "multilingual"
+    ],
+    "training_data": "multi-speaker speech datasets",
+    "speaker_config": "zero-shot clone (3-15 s reference, 85-95% similarity)",
+    "distinctive_artifacts": [
+      "oversmoothed spectrograms",
+      "rigid timing",
+      "pitch quantisation"
+    ],
+    "use_cases": [
+      "on-device privacy-focused TTS",
+      "CPU/edge inference via llama.cpp"
+    ],
+    "notes": "Neuphonic; GGUF Q4/Q8 quantisation; custom `neuttsair` Python lib"
+  },
+  "OpenVoiceV2": {
+    "architecture_family": "two-stage pipeline (base VITS TTS + tone-color converter)",
+    "acoustic_model": "MeloTTS-based VITS base generates stylised speech; lightweight encoder-decoder tone-color converter transfers target speaker timbre",
+    "vocoder_or_codec": "GAN-based waveform generator inside MeloTTS base",
+    "intermediate_representation": "linear/mel spectrogram + tone-color embedding",
+    "sample_rate_hz": null,
+    "languages": [
+      "multilingual (en, es, fr, zh, ja, ko)"
+    ],
+    "training_data": "large-scale multilingual speech collections",
+    "speaker_config": "zero-shot clone (seconds of reference)",
+    "distinctive_artifacts": [
+      "phase distortion in unvoiced consonants from tone-color conversion",
+      "pitch-shifting artifacts",
+      "over-regularised spectral envelopes"
+    ],
+    "use_cases": [
+      "instant voice cloning across languages",
+      "style/emotion preserving cloning"
+    ],
+    "notes": "MyShell.ai; tone-color converter decouples timbre from content/style"
+  },
+  "Openaudio-S1-Mini": {
+    "architecture_family": "autoregressive transformer (Qwen3 multimodal, 0.5B)",
+    "acoustic_model": "distilled 0.5B Qwen3 variant of OpenAudio S1; dual-autoregressive token prediction",
+    "vocoder_or_codec": "Descript Audio Codec-style codec (trained from scratch)",
+    "intermediate_representation": "discrete semantic + acoustic tokens",
+    "sample_rate_hz": null,
+    "languages": [
+      "multilingual (13 languages)"
+    ],
+    "training_data": "curated studio speech; RLHF from human feedback",
+    "speaker_config": "zero-shot clone (30-45 s reference, cross-lingual)",
+    "distinctive_artifacts": [
+      "robotic prosody from compact scale",
+      "occasional alignment issues",
+      "mechanical vocoder noise"
+    ],
+    "use_cases": [
+      "expressive compact TTS with 50+ inline emotion tags",
+      "multilingual cloning on limited compute"
+    ],
+    "notes": "Fish Audio; distilled from 4B S1; retains most expressive capabilities"
+  },
+  "OuteTTS": {
+    "architecture_family": "autoregressive transformer (Llama-OuteTTS-1.0-1B)",
+    "acoustic_model": "1B Llama LM treating speech as next-token prediction; pure language-model formulation",
+    "vocoder_or_codec": "WavTokenizer (single-quantiser neural audio codec, 75 tokens/sec at 24 kHz)",
+    "intermediate_representation": "discrete audio tokens",
+    "sample_rate_hz": null,
+    "languages": [
+      "multilingual"
+    ],
+    "training_data": "large-scale multilingual speech collections",
+    "speaker_config": "zero-shot clone",
+    "distinctive_artifacts": [
+      "semantic hallucinations",
+      "background-noise generation",
+      "codec quantisation",
+      "subtle phase artifacts"
+    ],
+    "use_cases": [
+      "LLM-integrated TTS",
+      "flexible zero-shot cloning"
+    ],
+    "notes": "experimental; configurable temperature/top-p sampling"
+  },
+  "Qwen2.5-Omni": {
+    "architecture_family": "omni-modal LLM with integrated speech generation",
+    "acoustic_model": "large unified Qwen2.5 transformer processing text/image/audio/video; generates speech tokens end-to-end",
+    "vocoder_or_codec": "specialised neural audio codec (adversarial waveform decoder)",
+    "intermediate_representation": "discrete or continuous audio tokens integrated in LLM vocabulary",
+    "sample_rate_hz": null,
+    "languages": [
+      "multilingual"
+    ],
+    "training_data": "large-scale multimodal mixed public corpora",
+    "speaker_config": "multi (context-aware prosody)",
+    "distinctive_artifacts": [
+      "LLM-style semantic hallucinations in audio",
+      "vocoder-related HF noise"
+    ],
+    "use_cases": [
+      "speech-to-speech translation",
+      "multimodal conversational agents"
+    ],
+    "notes": "Alibaba Qwen team; native audio-generation path inside the multimodal LLM"
+  },
+  "RVC": {
+    "architecture_family": "voice conversion (VITS backbone with retrieval)",
+    "acoustic_model": "VITS-based decoder conditioned on HuBERT/ContentVec content features blended with retrieved target-speaker feature patterns",
+    "vocoder_or_codec": "HiFi-GAN",
+    "intermediate_representation": "content-feature embeddings + retrieved speaker features",
+    "sample_rate_hz": null,
+    "languages": [
+      "multilingual (source-speech dependent)"
+    ],
+    "training_data": "as little as 10 minutes of target speaker audio per voice",
+    "speaker_config": "voice conversion (source-to-target speaker)",
+    "distinctive_artifacts": [
+      "distinct pitch-shifting artifacts",
+      "source-leakage in unvoiced sounds",
+      "over-regularised spectral envelopes"
+    ],
+    "use_cases": [
+      "retrofitting TTS output into a target voice",
+      "voice conversion on prerecorded speech"
+    ],
+    "notes": "not a TTS system per se; typically chained after another TTS"
+  },
+  "Resemble.ai (April 12th, 2025)": {
+    "architecture_family": "proprietary hybrid autoregressive + non-autoregressive (diffusion/flow-matching)",
+    "acoustic_model": "undisclosed proprietary architecture blending AR and non-AR components; neural audio super-resolution on output",
+    "vocoder_or_codec": "proprietary GAN-based waveform generator",
+    "intermediate_representation": "undisclosed",
+    "sample_rate_hz": null,
+    "languages": [
+      "multilingual"
+    ],
+    "training_data": "large-scale multilingual speech collections",
+    "speaker_config": "zero-shot clone (short reference)",
+    "distinctive_artifacts": [
+      "subtle PerTh watermark traces",
+      "phase artifacts during rapid pitch changes",
+      "temporal over-smoothing"
+    ],
+    "use_cases": [
+      "professional media-grade TTS",
+      "emotion-controlled cloning",
+      "speech-to-speech conversion"
+    ],
+    "notes": "Resemble.ai commercial API, April-12-2025 checkpoint; PerTh watermarking"
+  },
+  "Ringg Squirrel TTS v1.0": {
+    "architecture_family": "neural codec-based TTS",
+    "acoustic_model": "transformer acoustic model with speaker conditioning",
+    "vocoder_or_codec": "HiFi-GAN-class neural vocoder",
+    "intermediate_representation": "neural codec tokens",
+    "sample_rate_hz": null,
+    "languages": [
+      "en"
+    ],
+    "training_data": "curated studio speech recordings",
+    "speaker_config": "multi with voice cloning / style transfer",
+    "distinctive_artifacts": [
+      "synthesised noise floor",
+      "mechanical vocoder resonance",
+      "subtle phase artifacts"
+    ],
+    "use_cases": [
+      "conversational AI agents",
+      "voice-agent deployment"
+    ],
+    "notes": "Ringg commercial TTS, v1.0 release; multilingual expansion planned"
+  },
+  "SoulX-Podcast": {
+    "architecture_family": "neural TTS (long-form conversational)",
+    "acoustic_model": "transformer acoustic model with dialogue-aware prosody and robust duration model",
+    "vocoder_or_codec": "HiFi-GAN neural vocoder",
+    "intermediate_representation": "mel-spectrogram",
+    "sample_rate_hz": null,
+    "languages": [
+      "multilingual"
+    ],
+    "training_data": "large-scale multilingual conversational corpora",
+    "speaker_config": "multi (distinct podcast-character voices)",
+    "distinctive_artifacts": [
+      "over-emphasised pauses from duration model",
+      "perceptually synthetic vocoder timbre",
+      "prosodic smoothing"
+    ],
+    "use_cases": [
+      "podcast-style long-form dialogue generation",
+      "audio content creation"
+    ],
+    "notes": "podcast-optimised; emphasis on listener engagement and conversational flow"
+  },
+  "Spark-TTS-0.5B": {
+    "architecture_family": "LLM-based TTS (Qwen2.5-0.5B over BiCodec)",
+    "acoustic_model": "Qwen2.5-0.5B LLM generating BiCodec tokens (50 tok/s wav2vec-2.0 semantic + ECAPA-TDNN global) with chain-of-thought conditioning",
+    "vocoder_or_codec": "BiCodec decoder (directly reconstructs waveform from tokens; no separate vocoder)",
+    "intermediate_representation": "BiCodec semantic + global tokens",
+    "sample_rate_hz": null,
+    "languages": [
+      "multilingual (zh, en)"
+    ],
+    "training_data": "VoxBox, ~100K hours annotated speech",
+    "speaker_config": "zero-shot clone with coarse + fine control (gender, style, precise pitch/rate)",
+    "distinctive_artifacts": [
+      "pitch quantisation",
+      "flattened intonation contours",
+      "slight background static in unvoiced regions"
+    ],
+    "use_cases": [
+      "controllable zero-shot cloning",
+      "fine-grained prosody control via CoT prompting"
+    ],
+    "notes": "SparkAudio; no acoustic-model/vocoder separation — tokens decode directly"
+  },
+  "Step-Audio-EditX": {
+    "architecture_family": "transformer speech editor + generator",
+    "acoustic_model": "latent-acoustic transformer supporting insert/delete/replace edits with seamless boundary reconstruction",
+    "vocoder_or_codec": "BigVGAN-v2 vocoder (flow-matching diffusion transformer maps codec tokens to mel; BigVGANv2 then reconstructs waveform)",
+    "intermediate_representation": "latent acoustic representations",
+    "sample_rate_hz": null,
+    "languages": [
+      "multilingual (zh, en)"
+    ],
+    "training_data": "curated studio speech recordings",
+    "speaker_config": "multi with voice cloning and style transfer",
+    "distinctive_artifacts": [
+      "phase discontinuities at edit boundaries",
+      "over-regularised spectral envelopes"
+    ],
+    "use_cases": [
+      "speech editing (insert/delete/replace)",
+      "contextual continuation",
+      "TTS with editable segments"
+    ],
+    "notes": "StepFun; unified generation + editing pipeline"
+  },
+  "Supertonic": {
+    "architecture_family": "neural TTS (ONNX/browser-optimised)",
+    "acoustic_model": "transformer text encoder with neural acoustic decoder tuned for expressive prosody",
+    "vocoder_or_codec": "advanced neural vocoder (high-fidelity)",
+    "intermediate_representation": "mel-spectrogram",
+    "sample_rate_hz": null,
+    "languages": [
+      "en"
+    ],
+    "training_data": "multi-speaker English studio speech",
+    "speaker_config": "multi (preset voice options)",
+    "distinctive_artifacts": [
+      "unnatural lack of acoustic noise floor (strong forensic tell)",
+      "vocoder-related HF noise"
+    ],
+    "use_cases": [
+      "in-browser TTS via Transformers.js",
+      "creative media/entertainment content"
+    ],
+    "notes": "Supertone (HYBE); ONNX-packaged for browser-side inference"
+  },
+  "Tsukasa_Speech": {
+    "architecture_family": "attention-based seq-to-seq neural TTS",
+    "acoustic_model": "seq-to-seq attention model with Japanese-specific kanji reading, pitch-accent, and mora-timed rhythm handling",
+    "vocoder_or_codec": "GAN-based neural vocoder",
+    "intermediate_representation": "mel-spectrogram",
+    "sample_rate_hz": null,
+    "languages": [
+      "ja"
+    ],
+    "training_data": "curated Japanese speech with diverse styles and emotions",
+    "speaker_config": "multi with emotional control",
+    "distinctive_artifacts": [
+      "metallic resonance in high frequencies",
+      "prosodic smoothing",
+      "reduced pitch variability"
+    ],
+    "use_cases": [
+      "character-voiced Japanese synthesis",
+      "expressive ja-specific TTS"
+    ],
+    "notes": "Japanese-only stylised TTS; handles mora-timed rhythm and pitch-accent"
+  },
+  "Veena": {
+    "architecture_family": "neural TTS (Indic-focused)",
+    "acoustic_model": "transformer acoustic model with Devanagari-/Indic-script text frontend; handles aspirated/retroflex/conjunct phonology",
+    "vocoder_or_codec": "SNAC neural codec (24 kHz output via SNAC detokenizer; sub-80ms latency on H100)",
+    "intermediate_representation": "mel-spectrogram",
+    "sample_rate_hz": null,
+    "languages": [
+      "multilingual (Indic: hi and others)"
+    ],
+    "training_data": "multi-speaker Indic language speech datasets",
+    "speaker_config": "multi",
+    "distinctive_artifacts": [
+      "metallic resonance",
+      "unnatural noise floor",
+      "vocoder HF noise"
+    ],
+    "use_cases": [
+      "Indic-language TTS",
+      "Hindi + other Indian-script synthesis"
+    ],
+    "notes": "Indic-specialised neural TTS with script-aware frontend"
+  },
+  "VieNeu-TTS": {
+    "architecture_family": "compact neural TTS (edge-optimised)",
+    "acoustic_model": "small transformer acoustic model tuned for Vietnamese 6-tone rendering and syllable-timed rhythm",
+    "vocoder_or_codec": "adversarial neural vocoder",
+    "intermediate_representation": "mel-spectrogram",
+    "sample_rate_hz": null,
+    "languages": [
+      "vi"
+    ],
+    "training_data": "~1,000 hours of Vietnamese speech",
+    "speaker_config": "multi",
+    "distinctive_artifacts": [
+      "synthesised noise floor",
+      "mechanical vocoder resonance",
+      "vocoder HF noise"
+    ],
+    "use_cases": [
+      "edge-device Vietnamese TTS",
+      "voice assistants / accessibility tools"
+    ],
+    "notes": "Vietnamese-specialised edge model with diacritic/tone-aware frontend"
+  },
+  "VoiceCore": {
+    "architecture_family": "multi-stage neural TTS (enterprise streaming)",
+    "acoustic_model": "text-normalization + phoneme conversion + transformer acoustic model",
+    "vocoder_or_codec": "SNAC neural codec (inherited from Orpheus-3B backbone; 7 SNAC tokens per audio frame)",
+    "intermediate_representation": "mel-spectrogram / discrete codec tokens",
+    "sample_rate_hz": null,
+    "languages": [
+      "multilingual"
+    ],
+    "training_data": "multi-speaker speech datasets",
+    "speaker_config": "multi (voice customisation)",
+    "distinctive_artifacts": [
+      "mel-spectrogram oversmoothing",
+      "proprietary codec watermarking traces",
+      "pitch quantisation"
+    ],
+    "use_cases": [
+      "enterprise production TTS",
+      "streaming synthesis with prosody control"
+    ],
+    "notes": "commercial cloud TTS API"
+  },
+  "VoxCPM-0.5B": {
+    "architecture_family": "tokenizer-free end-to-end diffusion autoregressive",
+    "acoustic_model": "24-layer TSLM from MiniCPM4-0.5B + 6-layer RALM + LocEnc + local Diffusion Transformer (LocDiT); FSQ bottleneck",
+    "vocoder_or_codec": "LocDiT decoder (tokenizer-free continuous waveform path)",
+    "intermediate_representation": "semi-discrete FSQ residual representations",
+    "sample_rate_hz": null,
+    "languages": [
+      "multilingual (zh, en)"
+    ],
+    "training_data": "1.8M hours bilingual (zh, en)",
+    "speaker_config": "zero-shot clone with context-aware prosody",
+    "distinctive_artifacts": [
+      "hallucinated breaths",
+      "AR token repetitions",
+      "pitch quantisation"
+    ],
+    "use_cases": [
+      "low-RTF on-GPU TTS (RTF ~0.17 on RTX 4090)",
+      "context-aware zero-shot cloning"
+    ],
+    "notes": "OpenBMB/ModelBest; tokenizer-free continuous-speech formulation"
+  },
+  "VoxCPM-1.5": {
+    "architecture_family": "tokenizer-free end-to-end diffusion autoregressive (upgraded)",
+    "acoustic_model": "larger TSLM + RALM with enhanced training; semi-discrete residual representations + diffusion decoding",
+    "vocoder_or_codec": "LocDiT decoder (tokenizer-free continuous-latent diffusion transformer over AudioVAE-V2 latents)",
+    "intermediate_representation": "semi-discrete FSQ residual representations",
+    "sample_rate_hz": null,
+    "languages": [
+      "multilingual (zh, en)"
+    ],
+    "training_data": "expanded bilingual corpus with improved curation",
+    "speaker_config": "zero-shot clone (higher fidelity than 0.5B)",
+    "distinctive_artifacts": [
+      "residual codec quantisation noise",
+      "vocoder HF noise"
+    ],
+    "use_cases": [
+      "streaming long-form synthesis",
+      "full / LoRA fine-tuning for voice customisation"
+    ],
+    "notes": "OpenBMB/ModelBest; upgraded VoxCPM with LoRA support and streaming"
+  },
+  "Voxtream": {
+    "architecture_family": "three-stage autoregressive streaming transformer",
+    "acoustic_model": "Phoneme Transformer (PT, up to 10-phoneme look-ahead) + Temporal Transformer (TT, 12.5 Hz Mimi semantic + duration tokens) + Depth Transformer (DT, remaining Mimi acoustic codebooks with ReDimNet speaker embedding)",
+    "vocoder_or_codec": "Mimi streaming codec decoder (frame-by-frame waveform)",
+    "intermediate_representation": "Mimi RVQ tokens (12.5 Hz frames, 80 ms each)",
+    "sample_rate_hz": null,
+    "languages": [
+      "en"
+    ],
+    "training_data": "9K hours from Emilia + HiFiTTS-2",
+    "speaker_config": "zero-shot clone via ReDimNet speaker embeddings",
+    "distinctive_artifacts": [
+      "streaming chunk-boundary artifacts",
+      "oversmoothed spectrograms",
+      "rigid timing"
+    ],
+    "use_cases": [
+      "ultra-low-latency streaming TTS (102 ms first-packet GPU)",
+      "real-time conversational agents"
+    ],
+    "notes": "KTH Royal Institute of Technology; fully autoregressive; 5x faster than real-time"
+  },
+  "WhisperSpeech": {
+    "architecture_family": "Whisper-latent TTS pipeline",
+    "acoustic_model": "text-to-Whisper-latent transformer followed by Whisper-latent-to-audio decoder; leverages multilingual Whisper encoder features",
+    "vocoder_or_codec": "EnCodec acoustic tokens (1.5 kbps) + Vocos vocoder; semantic tokens from quantised Whisper encoder",
+    "intermediate_representation": "Whisper encoder latent features",
+    "sample_rate_hz": null,
+    "languages": [
+      "multilingual (Whisper coverage)"
+    ],
+    "training_data": "large-scale multilingual speech collections",
+    "speaker_config": "zero-shot clone via Whisper-encoded reference embedding",
+    "distinctive_artifacts": [
+      "codec quantisation artifacts",
+      "background diffusion-style noise",
+      "subtle phase artifacts"
+    ],
+    "use_cases": [
+      "multilingual TTS reusing ASR representations",
+      "voice cloning via ASR latents"
+    ],
+    "notes": "bridges ASR and TTS via shared Whisper latent space"
+  },
+  "YarnGPT": {
+    "architecture_family": "autoregressive transformer (GPT-style)",
+    "acoustic_model": "GPT-style AR transformer generating discrete audio codec tokens",
+    "vocoder_or_codec": "HiFi-GAN neural vocoder paired with the codec decoder",
+    "intermediate_representation": "discrete audio codec tokens",
+    "sample_rate_hz": null,
+    "languages": [
+      "en (Nigerian English / West African accents)"
+    ],
+    "training_data": "curated Nigerian English + West African speech",
+    "speaker_config": "multi (accent-preserving voices)",
+    "distinctive_artifacts": [
+      "phase misalignments in transients",
+      "over-regularised spectral envelopes"
+    ],
+    "use_cases": [
+      "Nigerian English / African-accent TTS",
+      "accent-diverse synthesis"
+    ],
+    "notes": "accent-representation focus; underrepresented-accent TTS"
+  },
+  "ZipVoice": {
+    "architecture_family": "non-autoregressive flow-matching",
+    "acoustic_model": "Zipformer-based text encoder + Zipformer-based conditional flow-matching vector-field estimator; trained as a speech infilling task; parallel decoding",
+    "vocoder_or_codec": "Vocos (pre-trained; converts Zipformer flow-matching output to waveform)",
+    "intermediate_representation": "compact neural codec tokens",
+    "sample_rate_hz": null,
+    "languages": [
+      "multilingual"
+    ],
+    "training_data": "large-scale multilingual speech collections",
+    "speaker_config": "multi (quality-speed tradeoffs)",
+    "distinctive_artifacts": [
+      "flow-matching ODE-solver artifacts at low step counts",
+      "parallel-generation prosody patterns",
+      "very clean spectrum (no AR exposure-bias drift)"
+    ],
+    "use_cases": [
+      "bandwidth-constrained TTS",
+      "high-throughput commercial API"
+    ],
+    "notes": "emphasis on compression and small footprint"
+  },
+  "e2-tts": {
+    "architecture_family": "non-autoregressive flow-matching",
+    "acoustic_model": "character-level transformer with simple masking/infilling; no duration predictor, no phoneme alignment",
+    "vocoder_or_codec": "HiFi-GAN neural vocoder",
+    "intermediate_representation": "mel-spectrogram",
+    "sample_rate_hz": null,
+    "languages": [
+      "en"
+    ],
+    "training_data": "multi-speaker speech datasets",
+    "speaker_config": "zero-shot clone",
+    "distinctive_artifacts": [
+      "background-noise hallucinations",
+      "temporal alignment glitches on complex phrasing",
+      "subtle phase artifacts"
+    ],
+    "use_cases": [
+      "architecturally-simple zero-shot TTS research",
+      "flow-matching baseline"
+    ],
+    "notes": "'Embarrassingly Easy TTS'; no explicit duration model or alignment"
+  },
+  "f5-tts": {
+    "architecture_family": "non-autoregressive flow-matching with DiT",
+    "acoustic_model": "DiT backbone with ConvNeXt V2 text encoder; Sway Sampling; padding-and-masking in place of duration model",
+    "vocoder_or_codec": "Vocos",
+    "intermediate_representation": "mel-spectrogram",
+    "sample_rate_hz": null,
+    "languages": [
+      "multilingual (en, zh)"
+    ],
+    "training_data": "~100K hours from Emilia (en + zh)",
+    "speaker_config": "zero-shot clone (~15 s reference)",
+    "distinctive_artifacts": [
+      "diffusion artifacts and temporal smearing from padding-based duration",
+      "over-regularised spectral envelopes"
+    ],
+    "use_cases": [
+      "fast non-autoregressive zero-shot TTS",
+      "research-grade flow-matching pipeline"
+    ],
+    "notes": "baseline for the F5 family (IndicF5 derives from this); Vocos vocoder"
+  },
+  "facebook_mms-tts-deu": {
+    "architecture_family": "VITS end-to-end (VAE + normalizing flows + adversarial)",
+    "acoustic_model": "single-speaker VITS: posterior encoder + flow prior + monotonic alignment search; character-level text input",
+    "vocoder_or_codec": "HiFi-GAN (adversarial) decoder, integrated end-to-end",
+    "intermediate_representation": "latent linear spectrogram (VAE posterior)",
+    "sample_rate_hz": null,
+    "languages": [
+      "de"
+    ],
+    "training_data": "German portion of MMS corpus (mostly religious-text readings)",
+    "speaker_config": "single",
+    "distinctive_artifacts": [
+      "phoneme-to-character mapping artifacts",
+      "prosodic smoothing",
+      "reduced pitch variability"
+    ],
+    "use_cases": [
+      "lightweight German TTS",
+      "massively-multilingual deployment"
+    ],
+    "notes": "Meta MMS (1,100+ languages); character-level VITS with shared architecture across the family"
+  },
+  "facebook_mms-tts-eng": {
+    "architecture_family": "VITS end-to-end (VAE + normalizing flows + adversarial)",
+    "acoustic_model": "single-speaker VITS: posterior encoder + flow prior + monotonic alignment search; character-level text input",
+    "vocoder_or_codec": "HiFi-GAN (adversarial) decoder, integrated end-to-end",
+    "intermediate_representation": "latent linear spectrogram (VAE posterior)",
+    "sample_rate_hz": null,
+    "languages": [
+      "en"
+    ],
+    "training_data": "English portion of MMS corpus (mostly religious-text readings)",
+    "speaker_config": "single",
+    "distinctive_artifacts": [
+      "adversarial-vocoder phase artifacts in unvoiced consonants",
+      "temporal over-smoothing",
+      "subtle phase artifacts"
+    ],
+    "use_cases": [
+      "lightweight English TTS",
+      "massively-multilingual deployment"
+    ],
+    "notes": "Meta MMS (1,100+ languages); benefits from relatively abundant English training data but same lightweight VITS"
+  },
+  "facebook_mms-tts-fin": {
+    "architecture_family": "VITS end-to-end (VAE + normalizing flows + adversarial)",
+    "acoustic_model": "single-speaker VITS: posterior encoder + flow prior + monotonic alignment search; character-level text input",
+    "vocoder_or_codec": "HiFi-GAN (adversarial) decoder, integrated end-to-end",
+    "intermediate_representation": "latent linear spectrogram (VAE posterior)",
+    "sample_rate_hz": null,
+    "languages": [
+      "fi"
+    ],
+    "training_data": "Finnish portion of MMS corpus (mostly religious-text readings)",
+    "speaker_config": "single",
+    "distinctive_artifacts": [
+      "unnatural vowel-duration artifacts (character-level tokenisation)",
+      "HiFi-GAN HF noise",
+      "over-regularised spectral envelopes"
+    ],
+    "use_cases": [
+      "lightweight Finnish TTS",
+      "massively-multilingual deployment"
+    ],
+    "notes": "Meta MMS (1,100+ languages); limited Finnish training data constrains prosodic range"
+  },
+  "facebook_mms-tts-fra": {
+    "architecture_family": "VITS end-to-end (VAE + normalizing flows + adversarial)",
+    "acoustic_model": "single-speaker VITS: posterior encoder + flow prior + monotonic alignment search; character-level text input",
+    "vocoder_or_codec": "HiFi-GAN (adversarial) decoder, integrated end-to-end",
+    "intermediate_representation": "latent linear spectrogram (VAE posterior)",
+    "sample_rate_hz": null,
+    "languages": [
+      "fr"
+    ],
+    "training_data": "French portion of MMS corpus (mostly religious-text readings)",
+    "speaker_config": "single",
+    "distinctive_artifacts": [
+      "slight clipping on nasalised vowels",
+      "phase smearing in fricatives",
+      "over-regularised spectral envelopes"
+    ],
+    "use_cases": [
+      "lightweight French TTS",
+      "massively-multilingual deployment"
+    ],
+    "notes": "Meta MMS (1,100+ languages); handles nasal vowels and liaison via character-level encoding"
+  },
+  "facebook_mms-tts-hun": {
+    "architecture_family": "VITS end-to-end (VAE + normalizing flows + adversarial)",
+    "acoustic_model": "single-speaker VITS: posterior encoder + flow prior + monotonic alignment search; character-level text input",
+    "vocoder_or_codec": "HiFi-GAN (adversarial) decoder, integrated end-to-end",
+    "intermediate_representation": "latent linear spectrogram (VAE posterior)",
+    "sample_rate_hz": null,
+    "languages": [
+      "hu"
+    ],
+    "training_data": "Hungarian portion of MMS corpus (mostly religious-text readings)",
+    "speaker_config": "single",
+    "distinctive_artifacts": [
+      "mechanical vibrato on sustained syllables",
+      "adversarial vocoder traces",
+      "over-regularised spectral envelopes"
+    ],
+    "use_cases": [
+      "lightweight Hungarian TTS",
+      "massively-multilingual deployment"
+    ],
+    "notes": "Meta MMS (1,100+ languages); character-level VITS handling long vowels and consonant clusters"
+  },
+  "facebook_mms-tts-nld": {
+    "architecture_family": "VITS end-to-end (VAE + normalizing flows + adversarial)",
+    "acoustic_model": "single-speaker VITS: posterior encoder + flow prior + monotonic alignment search; character-level text input",
+    "vocoder_or_codec": "HiFi-GAN (adversarial) decoder, integrated end-to-end",
+    "intermediate_representation": "latent linear spectrogram (VAE posterior)",
+    "sample_rate_hz": null,
+    "languages": [
+      "nl"
+    ],
+    "training_data": "Dutch portion of MMS corpus (mostly religious-text readings)",
+    "speaker_config": "single",
+    "distinctive_artifacts": [
+      "slight prosodic flattening",
+      "occasional HiFi-GAN HF hiss",
+      "reduced pitch variability"
+    ],
+    "use_cases": [
+      "lightweight Dutch TTS",
+      "massively-multilingual deployment"
+    ],
+    "notes": "Meta MMS (1,100+ languages); shared MMS VITS architecture"
+  },
+  "facebook_mms-tts-ron": {
+    "architecture_family": "VITS end-to-end (VAE + normalizing flows + adversarial)",
+    "acoustic_model": "single-speaker VITS: posterior encoder + flow prior + monotonic alignment search; character-level text input",
+    "vocoder_or_codec": "HiFi-GAN (adversarial) decoder, integrated end-to-end",
+    "intermediate_representation": "latent linear spectrogram (VAE posterior)",
+    "sample_rate_hz": null,
+    "languages": [
+      "ro"
+    ],
+    "training_data": "Romanian portion of MMS corpus (mostly religious-text readings)",
+    "speaker_config": "single",
+    "distinctive_artifacts": [
+      "phoneme-to-character mapping artifacts",
+      "subtle phase artifacts",
+      "temporal over-smoothing"
+    ],
+    "use_cases": [
+      "lightweight Romanian TTS",
+      "massively-multilingual deployment"
+    ],
+    "notes": "Meta MMS (1,100+ languages); diacritics (ă, â, î, ș, ț) handled via character embedding layer"
+  },
+  "facebook_mms-tts-rus": {
+    "architecture_family": "VITS end-to-end (VAE + normalizing flows + adversarial)",
+    "acoustic_model": "single-speaker VITS: posterior encoder + flow prior + monotonic alignment search; character-level text input",
+    "vocoder_or_codec": "HiFi-GAN (adversarial) decoder, integrated end-to-end",
+    "intermediate_representation": "latent linear spectrogram (VAE posterior)",
+    "sample_rate_hz": null,
+    "languages": [
+      "ru"
+    ],
+    "training_data": "Russian portion of MMS corpus (mostly religious-text readings)",
+    "speaker_config": "single",
+    "distinctive_artifacts": [
+      "pronounced phase distortion in heavy fricatives",
+      "attention-alignment instability",
+      "pitch quantisation"
+    ],
+    "use_cases": [
+      "lightweight Russian TTS",
+      "massively-multilingual deployment"
+    ],
+    "notes": "Meta MMS (1,100+ languages); Cyrillic character-level input; stress/reduction learned implicitly"
+  },
+  "facebook_mms-tts-swe": {
+    "architecture_family": "VITS end-to-end (VAE + normalizing flows + adversarial)",
+    "acoustic_model": "single-speaker VITS: posterior encoder + flow prior + monotonic alignment search; character-level text input",
+    "vocoder_or_codec": "HiFi-GAN (adversarial) decoder, integrated end-to-end",
+    "intermediate_representation": "latent linear spectrogram (VAE posterior)",
+    "sample_rate_hz": null,
+    "languages": [
+      "sv"
+    ],
+    "training_data": "Swedish portion of MMS corpus (mostly religious-text readings)",
+    "speaker_config": "single",
+    "distinctive_artifacts": [
+      "pitch-quantisation artifacts on tonal word accents",
+      "pitch quantisation",
+      "slightly flattened intonation contours"
+    ],
+    "use_cases": [
+      "lightweight Swedish TTS",
+      "massively-multilingual deployment"
+    ],
+    "notes": "Meta MMS (1,100+ languages); pitch-accent patterns learned implicitly"
+  },
+  "facebook_mms-tts-ukr": {
+    "architecture_family": "VITS end-to-end (VAE + normalizing flows + adversarial)",
+    "acoustic_model": "single-speaker VITS: posterior encoder + flow prior + monotonic alignment search; character-level text input",
+    "vocoder_or_codec": "HiFi-GAN (adversarial) decoder, integrated end-to-end",
+    "intermediate_representation": "latent linear spectrogram (VAE posterior)",
+    "sample_rate_hz": null,
+    "languages": [
+      "uk"
+    ],
+    "training_data": "Ukrainian portion of MMS corpus (mostly religious-text readings)",
+    "speaker_config": "single",
+    "distinctive_artifacts": [
+      "normalizing-flow artifacts",
+      "metallic resonance",
+      "subtle phase artifacts"
+    ],
+    "use_cases": [
+      "lightweight Ukrainian TTS",
+      "massively-multilingual deployment"
+    ],
+    "notes": "Meta MMS (1,100+ languages); Cyrillic character-level VITS, same MMS pipeline"
+  },
+  "griffin_lim": {
+    "architecture_family": "classical DSP vocoder (no learned model)",
+    "acoustic_model": "external acoustic model (e.g., Tacotron) supplies the mel/STFT magnitude; Griffin-Lim reconstructs phase iteratively",
+    "vocoder_or_codec": "Griffin-Lim iterative spectrogram inversion",
+    "intermediate_representation": "mel/STFT magnitude spectrogram",
+    "sample_rate_hz": null,
+    "languages": [
+      "multilingual (acoustic-model-dependent)"
+    ],
+    "training_data": "none (zero-parameter algorithm)",
+    "speaker_config": "single (Coqui pipeline pairs Griffin-Lim with a single-speaker Tacotron mel predictor)",
+    "distinctive_artifacts": [
+      "hollow/metallic phase-distortion artifacts",
+      "buzzy high-frequency coloration",
+      "temporal over-smoothing"
+    ],
+    "use_cases": [
+      "baseline vocoder for Tacotron-style pipelines",
+      "research-grade phase reconstruction"
+    ],
+    "notes": "no training data, no parameters; alternates STFT magnitude/phase constraints until convergence"
+  },
+  "kokoro": {
+    "architecture_family": "StyleTTS2-inspired non-autoregressive TTS",
+    "acoustic_model": "82M-parameter text encoder + duration predictor + style-conditioned decoder",
+    "vocoder_or_codec": "iSTFT-based waveform generator (GAN-trained)",
+    "intermediate_representation": "mel-spectrogram / style-vector-conditioned features",
+    "sample_rate_hz": null,
+    "languages": [
+      "en"
+    ],
+    "training_data": "mixed public English speech corpora",
+    "speaker_config": "multi (preset voices with style control; no zero-shot clone)",
+    "distinctive_artifacts": [
+      "overly-polished audio lacking micro-prosodic variation",
+      "pitch quantisation",
+      "slightly flattened intonation contours"
+    ],
+    "use_cases": [
+      "CPU/edge TTS with high quality-per-parameter",
+      "preset-voice style-controlled synthesis"
+    ],
+    "notes": "single-pass non-autoregressive inference; surprisingly high naturalness for 82M params"
+  },
+  "microsoft_speecht5_tts": {
+    "architecture_family": "unified speech-text encoder-decoder transformer",
+    "acoustic_model": "SpeechT5 encoder-decoder with modality-specific pre/post-nets; x-vector speaker conditioning",
+    "vocoder_or_codec": "HiFi-GAN",
+    "intermediate_representation": "log-mel spectrogram",
+    "sample_rate_hz": null,
+    "languages": [
+      "multilingual"
+    ],
+    "training_data": "large-scale unlabeled speech + text pre-training, then task-specific fine-tuning",
+    "speaker_config": "multi (x-vector embeddings)",
+    "distinctive_artifacts": [
+      "mel-spectrogram oversmoothing",
+      "vocoder-related HF noise"
+    ],
+    "use_cases": [
+      "multi-task speech-text model",
+      "TTS with x-vector speaker control"
+    ],
+    "notes": "Microsoft Research; shared encoder-decoder for TTS, ASR, and speech translation"
+  },
+  "minimax_speech-02-turbo": {
+    "architecture_family": "proprietary streaming neural TTS (low-latency variant)",
+    "acoustic_model": "undisclosed proprietary transformer tuned for low-latency streaming",
+    "vocoder_or_codec": "proprietary GAN-based waveform generator",
+    "intermediate_representation": "proprietary neural audio codec tokens",
+    "sample_rate_hz": null,
+    "languages": [
+      "multilingual (30+ languages)"
+    ],
+    "training_data": "large-scale proprietary multilingual speech data",
+    "speaker_config": "multi with voice cloning and emotion/style control",
+    "distinctive_artifacts": [
+      "aggressive-quantisation compression artifacts",
+      "slightly mechanical high-end",
+      "pitch quantisation"
+    ],
+    "use_cases": [
+      "real-time streaming TTS",
+      "voice-agent deployment at low latency"
+    ],
+    "notes": "MiniMax commercial API; Turbo tier trades some fidelity for latency"
+  },
+  "minimax_speech-2.6-hd": {
+    "architecture_family": "proprietary high-fidelity neural TTS",
+    "acoustic_model": "larger MiniMax transformer with enhanced acoustic modelling",
+    "vocoder_or_codec": "higher-fidelity proprietary neural vocoder",
+    "intermediate_representation": "proprietary neural codec tokens",
+    "sample_rate_hz": null,
+    "languages": [
+      "multilingual (30+ languages)"
+    ],
+    "training_data": "large-scale proprietary multilingual speech data",
+    "speaker_config": "zero-shot clone with emotion control",
+    "distinctive_artifacts": [
+      "slightly synthetic noise floor",
+      "reduced (but not absent) codec compression traces",
+      "subtle phase artifacts"
+    ],
+    "use_cases": [
+      "audiobook / dubbing / premium content",
+      "long-form synthesis (up to 200K characters/request)"
+    ],
+    "notes": "MiniMax commercial API; HD tier prioritises fidelity over latency"
+  },
+  "optispeech": {
+    "architecture_family": "non-autoregressive inference-optimised TTS",
+    "acoustic_model": "streamlined transformer encoder-decoder with reduced-attention-complexity and compact duration predictor",
+    "vocoder_or_codec": "lightweight neural vocoder",
+    "intermediate_representation": "mel-spectrogram",
+    "sample_rate_hz": null,
+    "languages": [
+      "en"
+    ],
+    "training_data": "large-scale mixed public speech data",
+    "speaker_config": "multi",
+    "distinctive_artifacts": [
+      "perceptually flat prosody",
+      "HF neural-compression traces",
+      "pitch quantisation"
+    ],
+    "use_cases": [
+      "real-time/edge TTS",
+      "latency-critical voice agents"
+    ],
+    "notes": "trades naturalness for extreme inference efficiency"
+  },
+  "orpheus-tts-0.1-finetune": {
+    "architecture_family": "autoregressive LLM-based TTS (Llama-3.2-3B)",
+    "acoustic_model": "Llama-3.2-3B backbone predicting SNAC codec tokens",
+    "vocoder_or_codec": "SNAC (Scalable Neural Audio Codec)",
+    "intermediate_representation": "SNAC discrete audio tokens",
+    "sample_rate_hz": null,
+    "languages": [
+      "en"
+    ],
+    "training_data": ">100K hours English speech + billions of QA text tokens",
+    "speaker_config": "multi (preset fine-tuned voices)",
+    "distinctive_artifacts": [
+      "SNAC quantisation noise",
+      "AR repetition hallucinations",
+      "pitch quantisation"
+    ],
+    "use_cases": [
+      "everyday TTS with emotion tags ([laugh], [sigh])",
+      "streaming low-latency speech"
+    ],
+    "notes": "Canopy Labs; Apache 2.0; ~2 ms default latency"
+  },
+  "parler_tts_large_v1": {
+    "architecture_family": "description-conditioned autoregressive transformer",
+    "acoustic_model": "encoder-decoder transformer conditioning on both input text and natural-language voice description",
+    "vocoder_or_codec": "Descript Audio Codec (DAC)",
+    "intermediate_representation": "discrete DAC tokens",
+    "sample_rate_hz": null,
+    "languages": [
+      "en"
+    ],
+    "training_data": "large-scale speech annotated with natural-language voice descriptions",
+    "speaker_config": "description-driven voice control (no reference audio)",
+    "distinctive_artifacts": [
+      "hallucinated acoustic environments from description prompts",
+      "DAC codec compression artifacts",
+      "prosodic smoothing"
+    ],
+    "use_cases": [
+      "voice generation from prose descriptions",
+      "controllable synthesis without cloning"
+    ],
+    "notes": "Hugging Face Parler-TTS; larger capacity follows descriptions more faithfully"
+  },
+  "parler_tts_mini_v0.1": {
+    "architecture_family": "description-conditioned autoregressive transformer (mini)",
+    "acoustic_model": "smaller encoder-decoder transformer with fewer layers/hidden dims; same description-conditioning path",
+    "vocoder_or_codec": "Descript Audio Codec (DAC)",
+    "intermediate_representation": "discrete DAC tokens",
+    "sample_rate_hz": null,
+    "languages": [
+      "en"
+    ],
+    "training_data": "annotated speech with voice descriptions (early version, smaller corpus)",
+    "speaker_config": "description-driven voice control",
+    "distinctive_artifacts": [
+      "heavy audio-token quantisation noise",
+      "prosodic instability",
+      "mechanical tone"
+    ],
+    "use_cases": [
+      "fast description-based TTS",
+      "research baseline for Parler"
+    ],
+    "notes": "early mini release; limited voice-description adherence"
+  },
+  "parler_tts_mini_v1": {
+    "architecture_family": "description-conditioned autoregressive transformer (mini, updated)",
+    "acoustic_model": "refined small encoder-decoder transformer with better description-alignment",
+    "vocoder_or_codec": "Descript Audio Codec (DAC)",
+    "intermediate_representation": "discrete DAC tokens",
+    "sample_rate_hz": null,
+    "languages": [
+      "en"
+    ],
+    "training_data": "re-annotated voice-description speech corpus",
+    "speaker_config": "description-driven voice control",
+    "distinctive_artifacts": [
+      "discrete-codec artifacts",
+      "occasional end-of-sentence AR babble",
+      "prosodic smoothing"
+    ],
+    "use_cases": [
+      "compact description-based TTS",
+      "edge-deployable Parler variant"
+    ],
+    "notes": "updated mini version; improved description adherence over v0.1"
+  },
+  "sesame_csm": {
+    "architecture_family": "dual-transformer multimodal (CSM-1B)",
+    "acoustic_model": "1B-parameter backbone transformer processes interleaved text-audio sequences; audio decoder transformer emits multi-codebook RVQ",
+    "vocoder_or_codec": "Mimi neural codec (Kyutai)",
+    "intermediate_representation": "Mimi RVQ tokens",
+    "sample_rate_hz": null,
+    "languages": [
+      "en"
+    ],
+    "training_data": "curated conversational speech corpora",
+    "speaker_config": "multi (context-aware consistent speakers)",
+    "distinctive_artifacts": [
+      "mel-spectrogram oversmoothing (end-to-end decoder)",
+      "slight temporal alignment delays",
+      "vocoder HF noise"
+    ],
+    "use_cases": [
+      "highly natural conversational speech",
+      "multi-turn dialogue with consistent speaker identity"
+    ],
+    "notes": "Sesame CSM-1B; base model for Azzurra-Voice and Marvis-TTS fine-tunes"
+  },
+  "suno_bark": {
+    "architecture_family": "multi-stage autoregressive transformer (GPT-style)",
+    "acoustic_model": "three-stage AR: semantic generator + coarse acoustic generator + fine acoustic generator; ~1B params total",
+    "vocoder_or_codec": "EnCodec neural audio codec",
+    "intermediate_representation": "EnCodec discrete tokens (semantic + acoustic)",
+    "sample_rate_hz": null,
+    "languages": [
+      "multilingual"
+    ],
+    "training_data": "multi-speaker speech, music, and sound-effects corpora",
+    "speaker_config": "multi (prompt-based conditioning)",
+    "distinctive_artifacts": [
+      "semantic hallucinations",
+      "background-noise generation",
+      "EnCodec quantisation artifacts",
+      "over-regularised spectral envelopes"
+    ],
+    "use_cases": [
+      "generic text-to-audio (speech + laughter + singing + SFX)",
+      "expressive prompt-conditioned synthesis"
+    ],
+    "notes": "Suno; token-based text-to-audio LM; supports nonverbal events"
+  },
+  "suno_bark-small": {
+    "architecture_family": "multi-stage autoregressive transformer (compact Bark)",
+    "acoustic_model": "reduced-dimension semantic + coarse + fine AR stack",
+    "vocoder_or_codec": "EnCodec neural audio codec",
+    "intermediate_representation": "EnCodec discrete tokens",
+    "sample_rate_hz": null,
+    "languages": [
+      "multilingual"
+    ],
+    "training_data": "same Bark training distribution with smaller model capacity",
+    "speaker_config": "multi (prompt-based)",
+    "distinctive_artifacts": [
+      "prosodic instability",
+      "frequent token-repetition hallucinations",
+      "heavier codec degradation",
+      "prosodic smoothing"
+    ],
+    "use_cases": [
+      "faster/leaner Bark for testing and constrained deployment",
+      "text-to-audio prototyping"
+    ],
+    "notes": "Suno; compact Bark variant trading quality for speed/memory"
+  },
+  "tts_models_bg_cv_vits": {
+    "architecture_family": "VITS end-to-end (VAE + normalizing flows + adversarial)",
+    "acoustic_model": "VITS posterior encoder + flow prior + monotonic alignment search; character-level text input",
+    "vocoder_or_codec": "HiFi-GAN (adversarial) decoder, integrated end-to-end",
+    "intermediate_representation": "latent linear spectrogram (VAE posterior)",
+    "sample_rate_hz": null,
+    "languages": [
+      "bg"
+    ],
+    "training_data": "Mozilla Common Voice Bulgarian recordings (crowd-sourced)",
+    "speaker_config": "single",
+    "distinctive_artifacts": [
+      "phoneme alignment artifacts",
+      "subtle phase artifacts",
+      "temporal over-smoothing"
+    ],
+    "use_cases": [
+      "Coqui Bulgarian TTS",
+      "single-speaker VITS synthesis"
+    ],
+    "notes": "Coqui TTS model; single-speaker Cyrillic-character VITS"
+  },
+  "tts_models_bn_custom_vits-female": {
+    "architecture_family": "VITS end-to-end (VAE + normalizing flows + adversarial)",
+    "acoustic_model": "VITS posterior encoder + flow prior + monotonic alignment search; character-level text input",
+    "vocoder_or_codec": "HiFi-GAN (adversarial) decoder, integrated end-to-end",
+    "intermediate_representation": "latent linear spectrogram (VAE posterior)",
+    "sample_rate_hz": null,
+    "languages": [
+      "bn"
+    ],
+    "training_data": "custom Bengali female-voice speech dataset",
+    "speaker_config": "single",
+    "distinctive_artifacts": [
+      "adversarial-vocoder phase artifacts in unvoiced consonants",
+      "prosodic smoothing",
+      "reduced pitch variability"
+    ],
+    "use_cases": [
+      "Coqui Bengali (female) TTS",
+      "single-speaker VITS synthesis"
+    ],
+    "notes": "Coqui TTS; female-voice Bengali VITS; character-level Bengali script"
+  },
+  "tts_models_bn_custom_vits-male": {
+    "architecture_family": "VITS end-to-end (VAE + normalizing flows + adversarial)",
+    "acoustic_model": "VITS posterior encoder + flow prior + monotonic alignment search; character-level text input",
+    "vocoder_or_codec": "HiFi-GAN (adversarial) decoder, integrated end-to-end",
+    "intermediate_representation": "latent linear spectrogram (VAE posterior)",
+    "sample_rate_hz": null,
+    "languages": [
+      "bn"
+    ],
+    "training_data": "custom Bengali male-voice speech dataset",
+    "speaker_config": "single",
+    "distinctive_artifacts": [
+      "HiFi-GAN HF noise",
+      "metallic resonance on sustained low pitches",
+      "pitch quantisation"
+    ],
+    "use_cases": [
+      "Coqui Bengali (male) TTS",
+      "single-speaker VITS synthesis"
+    ],
+    "notes": "Coqui TTS; male-voice Bengali VITS; character-level Bengali script"
+  },
+  "tts_models_cs_cv_vits": {
+    "architecture_family": "VITS end-to-end (VAE + normalizing flows + adversarial)",
+    "acoustic_model": "VITS posterior encoder + flow prior + monotonic alignment search; character-level text input",
+    "vocoder_or_codec": "HiFi-GAN (adversarial) decoder, integrated end-to-end",
+    "intermediate_representation": "latent linear spectrogram (VAE posterior)",
+    "sample_rate_hz": null,
+    "languages": [
+      "cs"
+    ],
+    "training_data": "Mozilla Common Voice Czech recordings",
+    "speaker_config": "single",
+    "distinctive_artifacts": [
+      "phoneme-to-character mapping artifacts",
+      "phase smearing in fricatives",
+      "pitch quantisation"
+    ],
+    "use_cases": [
+      "Coqui Czech TTS",
+      "single-speaker VITS synthesis"
+    ],
+    "notes": "Coqui TTS; Czech VITS with diacritic-aware character encoding"
+  },
+  "tts_models_da_cv_vits": {
+    "architecture_family": "VITS end-to-end (VAE + normalizing flows + adversarial)",
+    "acoustic_model": "VITS posterior encoder + flow prior + monotonic alignment search; character-level text input",
+    "vocoder_or_codec": "HiFi-GAN (adversarial) decoder, integrated end-to-end",
+    "intermediate_representation": "latent linear spectrogram (VAE posterior)",
+    "sample_rate_hz": null,
+    "languages": [
+      "da"
+    ],
+    "training_data": "Mozilla Common Voice Danish recordings",
+    "speaker_config": "single",
+    "distinctive_artifacts": [
+      "mechanical vibrato on sustained syllables",
+      "pitch-quantisation on Danish vowels",
+      "subtle phase artifacts"
+    ],
+    "use_cases": [
+      "Coqui Danish TTS",
+      "single-speaker VITS synthesis"
+    ],
+    "notes": "Coqui TTS; Danish VITS (stød and vowel quality learned implicitly)"
+  },
+  "tts_models_de_css10_vits-neon": {
+    "architecture_family": "VITS end-to-end (VAE + normalizing flows + adversarial)",
+    "acoustic_model": "VITS posterior encoder + flow prior + monotonic alignment search; character-level text input",
+    "vocoder_or_codec": "HiFi-GAN (adversarial) decoder, integrated end-to-end",
+    "intermediate_representation": "latent linear spectrogram (VAE posterior)",
+    "sample_rate_hz": null,
+    "languages": [
+      "de"
+    ],
+    "training_data": "CSS10 single-speaker German read-speech recordings",
+    "speaker_config": "single",
+    "distinctive_artifacts": [
+      "slight prosodic flattening",
+      "occasional HiFi-GAN HF hiss",
+      "reduced pitch variability"
+    ],
+    "use_cases": [
+      "Coqui German TTS",
+      "single-speaker VITS synthesis"
+    ],
+    "notes": "Coqui TTS; CSS10-trained German VITS with Neon-style modifications"
+  },
+  "tts_models_de_thorsten_tacotron2-DCA": {
+    "architecture_family": "Tacotron2 with Dynamic Convolution Attention",
+    "acoustic_model": "recurrent encoder + autoregressive mel decoder with DCA (replaces location-sensitive attention)",
+    "vocoder_or_codec": "external vocoder (WaveGlow or Griffin-Lim in classic setups; GAN-based in modern pipelines)",
+    "intermediate_representation": "mel-spectrogram",
+    "sample_rate_hz": null,
+    "languages": [
+      "de"
+    ],
+    "training_data": "Thorsten Müller German single-speaker dataset",
+    "speaker_config": "single",
+    "distinctive_artifacts": [
+      "attention-alignment failures causing phoneme repetitions",
+      "over-regularised spectral envelopes",
+      "mel over-smoothing"
+    ],
+    "use_cases": [
+      "Coqui TTS German Tacotron2 baseline"
+    ],
+    "notes": "Coqui TTS; DCA improves alignment robustness over location-sensitive attention"
+  },
+  "tts_models_de_thorsten_tacotron2-DDC": {
+    "architecture_family": "Tacotron2 with Double Decoder Consistency",
+    "acoustic_model": "recurrent encoder + autoregressive decoder; DDC adds a coarse-mel second decoder for alignment regularisation",
+    "vocoder_or_codec": "HiFi-GAN (external)",
+    "intermediate_representation": "mel-spectrogram",
+    "sample_rate_hz": null,
+    "languages": [
+      "de"
+    ],
+    "training_data": "Thorsten Müller German single-speaker dataset",
+    "speaker_config": "single",
+    "distinctive_artifacts": [
+      "mel over-smoothing",
+      "over-regularised spectral envelopes"
+    ],
+    "use_cases": [
+      "German Tacotron2 with improved alignment stability"
+    ],
+    "notes": "Coqui TTS; DDC adds a second decoder as consistency regulariser"
+  },
+  "tts_models_de_thorsten_vits": {
+    "architecture_family": "VITS end-to-end (VAE + normalizing flows + adversarial)",
+    "acoustic_model": "VITS posterior encoder + flow prior + monotonic alignment search; character-level text input",
+    "vocoder_or_codec": "HiFi-GAN (adversarial) decoder, integrated end-to-end",
+    "intermediate_representation": "latent linear spectrogram (VAE posterior)",
+    "sample_rate_hz": null,
+    "languages": [
+      "de"
+    ],
+    "training_data": "Thorsten Müller German single-speaker dataset",
+    "speaker_config": "single",
+    "distinctive_artifacts": [
+      "phase-distortion artifacts in heavy fricatives",
+      "prosodic smoothing",
+      "reduced pitch variability"
+    ],
+    "use_cases": [
+      "Coqui German TTS",
+      "single-speaker VITS synthesis"
+    ],
+    "notes": "Coqui TTS; German VITS; benefits from clean consistent recordings"
+  },
+  "tts_models_el_cv_vits": {
+    "architecture_family": "VITS end-to-end (VAE + normalizing flows + adversarial)",
+    "acoustic_model": "VITS posterior encoder + flow prior + monotonic alignment search; character-level text input",
+    "vocoder_or_codec": "HiFi-GAN (adversarial) decoder, integrated end-to-end",
+    "intermediate_representation": "latent linear spectrogram (VAE posterior)",
+    "sample_rate_hz": null,
+    "languages": [
+      "el"
+    ],
+    "training_data": "Mozilla Common Voice Greek recordings",
+    "speaker_config": "single",
+    "distinctive_artifacts": [
+      "normalizing-flow artifacts",
+      "metallic HiFi-GAN resonance",
+      "prosodic smoothing"
+    ],
+    "use_cases": [
+      "Coqui Greek TTS",
+      "single-speaker VITS synthesis"
+    ],
+    "notes": "Coqui TTS; Greek VITS; Greek alphabet character-level input"
+  },
+  "tts_models_en_blizzard2013_capacitron-t2-c50": {
+    "architecture_family": "Tacotron2-derived Capacitron (VAE prosody bottleneck)",
+    "acoustic_model": "Tacotron2 backbone with reference encoder + variational prosody latent (50 capacity units)",
+    "vocoder_or_codec": "HiFi-GAN (external)",
+    "intermediate_representation": "mel-spectrogram",
+    "sample_rate_hz": null,
+    "languages": [
+      "en"
+    ],
+    "training_data": "Blizzard Challenge 2013 English data",
+    "speaker_config": "single with prosody latent control",
+    "distinctive_artifacts": [
+      "smooth-but-oversmoothed mels",
+      "attention-drift artifacts",
+      "over-regularised spectral envelopes"
+    ],
+    "use_cases": [
+      "controllable-prosody English TTS",
+      "expressive Tacotron2 variant"
+    ],
+    "notes": "Coqui TTS; c50 = 50 capacitron capacity units"
+  },
+  "tts_models_en_ek1_tacotron2": {
+    "architecture_family": "Tacotron2 with location-sensitive attention",
+    "acoustic_model": "standard Tacotron2 recurrent encoder + AR decoder",
+    "vocoder_or_codec": "GAN-based waveform generator (external; Griffin-Lim also supported)",
+    "intermediate_representation": "mel-spectrogram",
+    "sample_rate_hz": null,
+    "languages": [
+      "en"
+    ],
+    "training_data": "EK1 (Elizabeth Klett) English audiobook dataset",
+    "speaker_config": "single (audiobook-style female voice)",
+    "distinctive_artifacts": [
+      "attention-alignment errors causing phoneme repetitions/skips",
+      "vocoder HF noise"
+    ],
+    "use_cases": [
+      "English audiobook-style TTS",
+      "Tacotron2 baseline"
+    ],
+    "notes": "Coqui TTS; classic Tacotron2 on single-speaker audiobook data"
+  },
+  "tts_models_en_jenny_jenny": {
+    "architecture_family": "neural TTS (Jenny pipeline)",
+    "acoustic_model": "speaker-specialised acoustic model tuned to the Jenny voice",
+    "vocoder_or_codec": "neural waveform decoder",
+    "intermediate_representation": "mel-spectrogram",
+    "sample_rate_hz": null,
+    "languages": [
+      "en"
+    ],
+    "training_data": "Jenny high-quality single-speaker English female dataset",
+    "speaker_config": "single",
+    "distinctive_artifacts": [
+      "stable prosody lacking fine HF detail",
+      "metallic vocoder traces",
+      "prosodic smoothing"
+    ],
+    "use_cases": [
+      "consistent single-speaker English narration"
+    ],
+    "notes": "Coqui TTS; bespoke pipeline for the Jenny dataset"
+  },
+  "tts_models_en_ljspeech_fast_pitch": {
+    "architecture_family": "non-autoregressive FastPitch (feed-forward transformer)",
+    "acoustic_model": "parallel feed-forward transformer predicting mels + explicit pitch contour + duration predictor",
+    "vocoder_or_codec": "HiFi-GAN (external)",
+    "intermediate_representation": "mel-spectrogram + pitch embeddings",
+    "sample_rate_hz": null,
+    "languages": [
+      "en"
+    ],
+    "training_data": "LJSpeech single-speaker",
+    "speaker_config": "single (Linda Johnson)",
+    "distinctive_artifacts": [
+      "perceptually rigid intonation",
+      "slightly robotic prosody",
+      "prosodic smoothing"
+    ],
+    "use_cases": [
+      "fast parallel English TTS",
+      "pitch-controllable synthesis"
+    ],
+    "notes": "Coqui TTS; FastPitch exposes explicit pitch control"
+  },
+  "tts_models_en_ljspeech_glow-tts": {
+    "architecture_family": "Glow-TTS non-autoregressive flow-based",
+    "acoustic_model": "Glow-based invertible 1x1 conv decoder + monotonic alignment search for duration",
+    "vocoder_or_codec": "neural waveform decoder (external)",
+    "intermediate_representation": "mel-spectrogram",
+    "sample_rate_hz": null,
+    "languages": [
+      "en"
+    ],
+    "training_data": "LJSpeech single-speaker",
+    "speaker_config": "single",
+    "distinctive_artifacts": [
+      "slight mel over-smoothing",
+      "over-regularised spectral envelopes"
+    ],
+    "use_cases": [
+      "fast parallel TTS with stable alignment",
+      "flow-based acoustic research baseline"
+    ],
+    "notes": "Coqui TTS; Glow normalizing flows with MAS duration"
+  },
+  "tts_models_en_ljspeech_neural_hmm": {
+    "architecture_family": "Neural HMM TTS",
+    "acoustic_model": "AR decoder guided by HMM state transitions; deep-learning acoustic + HMM alignment",
+    "vocoder_or_codec": "adversarial neural vocoder (external)",
+    "intermediate_representation": "mel-spectrogram",
+    "sample_rate_hz": null,
+    "languages": [
+      "en"
+    ],
+    "training_data": "LJSpeech single-speaker",
+    "speaker_config": "single",
+    "distinctive_artifacts": [
+      "mechanical phoneme-transition artifacts",
+      "over-regularised spectral envelopes"
+    ],
+    "use_cases": [
+      "alignment-robust English TTS"
+    ],
+    "notes": "Coqui TTS; HMM transitions improve robustness vs attention-based models"
+  },
+  "tts_models_en_ljspeech_overflow": {
+    "architecture_family": "Overflow (Neural HMM + normalizing flow)",
+    "acoustic_model": "HMM-transition duration modelling with Glow-based flow acoustic generator",
+    "vocoder_or_codec": "GAN-based waveform generator (external)",
+    "intermediate_representation": "mel-spectrogram",
+    "sample_rate_hz": null,
+    "languages": [
+      "en"
+    ],
+    "training_data": "LJSpeech single-speaker",
+    "speaker_config": "single",
+    "distinctive_artifacts": [
+      "subtle phase distortions on rapid segments",
+      "pitch quantisation",
+      "slightly flattened intonation contours"
+    ],
+    "use_cases": [
+      "natural-sounding alignment-robust English TTS"
+    ],
+    "notes": "Coqui TTS; combines HMM alignment with Glow acoustic flow"
+  },
+  "tts_models_en_ljspeech_speedy-speech": {
+    "architecture_family": "non-autoregressive fully-convolutional TTS",
+    "acoustic_model": "fully-convolutional parallel acoustic model; teacher-student duration distillation from an AR teacher",
+    "vocoder_or_codec": "adversarial neural vocoder (external)",
+    "intermediate_representation": "mel-spectrogram",
+    "sample_rate_hz": null,
+    "languages": [
+      "en"
+    ],
+    "training_data": "LJSpeech single-speaker",
+    "speaker_config": "single",
+    "distinctive_artifacts": [
+      "significant mel over-smoothing",
+      "lack of micro-prosodic detail",
+      "over-regularised spectral envelopes"
+    ],
+    "use_cases": [
+      "very-fast English TTS",
+      "inference-speed-optimised synthesis"
+    ],
+    "notes": "Coqui TTS; teacher-student distillation for duration extraction"
+  },
+  "tts_models_en_ljspeech_tacotron2-DCA": {
+    "architecture_family": "Tacotron2 (autoregressive seq-to-seq)",
+    "acoustic_model": "Tacotron2 recurrent encoder + AR decoder with Dynamic Convolution Attention",
+    "vocoder_or_codec": "neural waveform decoder (external)",
+    "intermediate_representation": "mel-spectrogram",
+    "sample_rate_hz": null,
+    "languages": [
+      "en"
+    ],
+    "training_data": "LJSpeech single-speaker",
+    "speaker_config": "single",
+    "distinctive_artifacts": [
+      "attention-alignment failures causing phoneme repetitions / unnatural pauses",
+      "subtle phase artifacts",
+      "temporal over-smoothing"
+    ],
+    "use_cases": [
+      "Coqui TTS seq-to-seq baseline"
+    ],
+    "notes": "Coqui TTS; DCA enforces monotonic alignment via convolutional attention kernels"
+  },
+  "tts_models_en_ljspeech_tacotron2-DDC": {
+    "architecture_family": "Tacotron2 (autoregressive seq-to-seq)",
+    "acoustic_model": "Tacotron2 recurrent encoder + AR decoder with Double Decoder Consistency",
+    "vocoder_or_codec": "neural waveform decoder (external)",
+    "intermediate_representation": "mel-spectrogram",
+    "sample_rate_hz": null,
+    "languages": [
+      "en"
+    ],
+    "training_data": "LJSpeech single-speaker",
+    "speaker_config": "single",
+    "distinctive_artifacts": [
+      "Tacotron-family mel over-smoothing",
+      "prosodic smoothing",
+      "reduced pitch variability"
+    ],
+    "use_cases": [
+      "Coqui TTS seq-to-seq baseline"
+    ],
+    "notes": "Coqui TTS; DDC adds a coarse-mel second decoder for alignment consistency"
+  },
+  "tts_models_en_ljspeech_tacotron2-DDC_ph": {
+    "architecture_family": "Tacotron2 (autoregressive seq-to-seq)",
+    "acoustic_model": "Tacotron2 recurrent encoder + AR decoder with Double Decoder Consistency; phoneme-level input",
+    "vocoder_or_codec": "HiFi-GAN (external)",
+    "intermediate_representation": "mel-spectrogram",
+    "sample_rate_hz": null,
+    "languages": [
+      "en"
+    ],
+    "training_data": "LJSpeech single-speaker",
+    "speaker_config": "single",
+    "distinctive_artifacts": [
+      "residual mel over-smoothing",
+      "subtle phase artifacts",
+      "temporal over-smoothing"
+    ],
+    "use_cases": [
+      "Coqui TTS seq-to-seq baseline"
+    ],
+    "notes": "Coqui TTS; phoneme-level inputs via external phonemizer reduce G2P ambiguity"
+  },
+  "tts_models_en_ljspeech_vits": {
+    "architecture_family": "VITS end-to-end (VAE + normalizing flows + adversarial)",
+    "acoustic_model": "VITS posterior encoder + flow prior + monotonic alignment search; character-level text input",
+    "vocoder_or_codec": "HiFi-GAN (adversarial) decoder, integrated end-to-end",
+    "intermediate_representation": "latent linear spectrogram (VAE posterior)",
+    "sample_rate_hz": null,
+    "languages": [
+      "en"
+    ],
+    "training_data": "LJSpeech single-speaker (Linda Johnson)",
+    "speaker_config": "single",
+    "distinctive_artifacts": [
+      "phase-distortion artifacts in fricatives",
+      "subtle phase artifacts",
+      "temporal over-smoothing"
+    ],
+    "use_cases": [
+      "Coqui English TTS",
+      "single-speaker VITS synthesis"
+    ],
+    "notes": "Coqui TTS; one of the most widely used Coqui configurations"
+  },
+  "tts_models_en_ljspeech_vits--neon": {
+    "architecture_family": "VITS end-to-end (VAE + normalizing flows + adversarial)",
+    "acoustic_model": "VITS posterior encoder + flow prior + monotonic alignment search; character-level text input",
+    "vocoder_or_codec": "HiFi-GAN (adversarial) decoder, integrated end-to-end",
+    "intermediate_representation": "latent linear spectrogram (VAE posterior)",
+    "sample_rate_hz": null,
+    "languages": [
+      "en"
+    ],
+    "training_data": "LJSpeech single-speaker",
+    "speaker_config": "single",
+    "distinctive_artifacts": [
+      "slightly elevated noise floor",
+      "audible quantisation steps",
+      "vocoder HF noise"
+    ],
+    "use_cases": [
+      "Coqui English TTS",
+      "single-speaker VITS synthesis"
+    ],
+    "notes": "Coqui TTS; Neon-tuned VITS with inference-speed-optimised hyperparameters"
+  },
+  "tts_models_en_multi-dataset_tortoise-v2": {
+    "architecture_family": "two-stage AR-GPT + diffusion",
+    "acoustic_model": "CLVP candidate ranker + AR GPT-style decoder producing DVAE tokens; diffusion model refines to mels",
+    "vocoder_or_codec": "UnivNet neural vocoder (diffusion model converts DVAE/GPT tokens → mel-spectrogram; UnivNet converts mel → 24 kHz waveform)",
+    "intermediate_representation": "DVAE discrete tokens + diffused mels",
+    "sample_rate_hz": null,
+    "languages": [
+      "en"
+    ],
+    "training_data": "multi-dataset English collections (multi-speaker)",
+    "speaker_config": "multi with reference-audio voice cloning",
+    "distinctive_artifacts": [
+      "semantic hallucinations",
+      "background noise",
+      "codec-induced artifacts",
+      "prosodic smoothing"
+    ],
+    "use_cases": [
+      "very high quality English TTS (slow inference)",
+      "reference-audio voice cloning"
+    ],
+    "notes": "Coqui TTS packaging of Tortoise-TTS v2"
+  },
+  "tts_models_en_sam_tacotron-DDC": {
+    "architecture_family": "Tacotron (CBHG + AR attention)",
+    "acoustic_model": "original Tacotron (CBHG encoder + AR attention decoder) with Double Decoder Consistency",
+    "vocoder_or_codec": "GAN-based waveform generator (external; Griffin-Lim also supported)",
+    "intermediate_representation": "linear spectrogram",
+    "sample_rate_hz": null,
+    "languages": [
+      "en"
+    ],
+    "training_data": "SAM single-speaker dataset",
+    "speaker_config": "single",
+    "distinctive_artifacts": [
+      "mel over-smoothing from Tacotron family",
+      "pitch quantisation",
+      "slightly flattened intonation contours"
+    ],
+    "use_cases": [
+      "Coqui TTS seq-to-seq baseline"
+    ],
+    "notes": "Coqui TTS; original Tacotron (CBHG) backbone with DDC alignment"
+  },
+  "tts_models_es_css10_vits": {
+    "architecture_family": "VITS end-to-end (VAE + normalizing flows + adversarial)",
+    "acoustic_model": "VITS posterior encoder + flow prior + monotonic alignment search; character-level text input",
+    "vocoder_or_codec": "HiFi-GAN (adversarial) decoder, integrated end-to-end",
+    "intermediate_representation": "latent linear spectrogram (VAE posterior)",
+    "sample_rate_hz": null,
+    "languages": [
+      "es"
+    ],
+    "training_data": "CSS10 single-speaker Spanish read-speech dataset",
+    "speaker_config": "single",
+    "distinctive_artifacts": [
+      "phase smearing in high frequencies",
+      "vocoder HF noise",
+      "reduced pitch variability"
+    ],
+    "use_cases": [
+      "Coqui Spanish TTS",
+      "single-speaker VITS synthesis"
+    ],
+    "notes": "Coqui TTS; Spanish VITS handling rolled R and vowel-only syllables implicitly"
+  },
+  "tts_models_es_mai_tacotron2-DDC": {
+    "architecture_family": "Tacotron2 (autoregressive seq-to-seq)",
+    "acoustic_model": "Tacotron2 recurrent encoder + AR decoder with Double Decoder Consistency",
+    "vocoder_or_codec": "GAN-based waveform generator (external)",
+    "intermediate_representation": "mel-spectrogram",
+    "sample_rate_hz": null,
+    "languages": [
+      "es"
+    ],
+    "training_data": "MAI Spanish single-speaker dataset",
+    "speaker_config": "single",
+    "distinctive_artifacts": [
+      "attention-alignment failures causing phoneme repetitions",
+      "subtle phase artifacts",
+      "temporal over-smoothing"
+    ],
+    "use_cases": [
+      "Coqui TTS seq-to-seq baseline"
+    ],
+    "notes": "Coqui TTS; Spanish Tacotron2-DDC"
+  },
+  "tts_models_et_cv_vits": {
+    "architecture_family": "VITS end-to-end (VAE + normalizing flows + adversarial)",
+    "acoustic_model": "VITS posterior encoder + flow prior + monotonic alignment search; character-level text input",
+    "vocoder_or_codec": "HiFi-GAN (adversarial) decoder, integrated end-to-end",
+    "intermediate_representation": "latent linear spectrogram (VAE posterior)",
+    "sample_rate_hz": null,
+    "languages": [
+      "et"
+    ],
+    "training_data": "Mozilla Common Voice Estonian recordings",
+    "speaker_config": "single",
+    "distinctive_artifacts": [
+      "phase-distortion in heavy fricatives",
+      "prosodic smoothing",
+      "reduced pitch variability"
+    ],
+    "use_cases": [
+      "Coqui Estonian TTS",
+      "single-speaker VITS synthesis"
+    ],
+    "notes": "Coqui TTS; Estonian VITS (vowel length learned implicitly)"
+  },
+  "tts_models_fa_custom_glow-tts": {
+    "architecture_family": "Glow-TTS non-autoregressive flow-based",
+    "acoustic_model": "Glow-based invertible 1x1 conv decoder + monotonic alignment search for duration",
+    "vocoder_or_codec": "adversarial neural vocoder (external)",
+    "intermediate_representation": "mel-spectrogram",
+    "sample_rate_hz": null,
+    "languages": [
+      "fa"
+    ],
+    "training_data": "custom Farsi (Persian) single-speaker dataset",
+    "speaker_config": "single",
+    "distinctive_artifacts": [
+      "mel over-smoothing",
+      "pitch quantisation",
+      "slightly flattened intonation contours"
+    ],
+    "use_cases": [
+      "Coqui Farsi Glow-TTS"
+    ],
+    "notes": "Coqui TTS; Farsi Glow-TTS over right-to-left Persian script (ezafe handled implicitly)"
+  },
+  "tts_models_fi_css10_vits": {
+    "architecture_family": "VITS end-to-end (VAE + normalizing flows + adversarial)",
+    "acoustic_model": "VITS posterior encoder + flow prior + monotonic alignment search; character-level text input",
+    "vocoder_or_codec": "HiFi-GAN (adversarial) decoder, integrated end-to-end",
+    "intermediate_representation": "latent linear spectrogram (VAE posterior)",
+    "sample_rate_hz": null,
+    "languages": [
+      "fi"
+    ],
+    "training_data": "CSS10 single-speaker Finnish dataset",
+    "speaker_config": "single",
+    "distinctive_artifacts": [
+      "phoneme-to-character mapping artifacts",
+      "adversarial-vocoder noise",
+      "subtle phase artifacts"
+    ],
+    "use_cases": [
+      "Coqui Finnish TTS",
+      "single-speaker VITS synthesis"
+    ],
+    "notes": "Coqui TTS; Finnish VITS (agglutinative morphology + vowel harmony)"
+  },
+  "tts_models_fr_css10_vits": {
+    "architecture_family": "VITS end-to-end (VAE + normalizing flows + adversarial)",
+    "acoustic_model": "VITS posterior encoder + flow prior + monotonic alignment search; character-level text input",
+    "vocoder_or_codec": "HiFi-GAN (adversarial) decoder, integrated end-to-end",
+    "intermediate_representation": "latent linear spectrogram (VAE posterior)",
+    "sample_rate_hz": null,
+    "languages": [
+      "fr"
+    ],
+    "training_data": "CSS10 single-speaker French dataset",
+    "speaker_config": "single",
+    "distinctive_artifacts": [
+      "mechanical vibrato on sustained syllables",
+      "adversarial vocoder traces",
+      "over-regularised spectral envelopes"
+    ],
+    "use_cases": [
+      "Coqui French TTS",
+      "single-speaker VITS synthesis"
+    ],
+    "notes": "Coqui TTS; French VITS (liaison + nasal vowels handled implicitly)"
+  },
+  "tts_models_fr_mai_tacotron2-DDC": {
+    "architecture_family": "Tacotron2 (autoregressive seq-to-seq)",
+    "acoustic_model": "Tacotron2 recurrent encoder + AR decoder with Double Decoder Consistency",
+    "vocoder_or_codec": "GAN-based waveform generator (external)",
+    "intermediate_representation": "mel-spectrogram",
+    "sample_rate_hz": null,
+    "languages": [
+      "fr"
+    ],
+    "training_data": "MAI French single-speaker dataset",
+    "speaker_config": "single",
+    "distinctive_artifacts": [
+      "mel over-smoothing (Tacotron family)",
+      "vocoder HF noise"
+    ],
+    "use_cases": [
+      "Coqui TTS seq-to-seq Tacotron2-DDC baseline"
+    ],
+    "notes": "Coqui TTS; French Tacotron2-DDC"
+  },
+  "tts_models_ga_cv_vits": {
+    "architecture_family": "VITS end-to-end (VAE + normalizing flows + adversarial)",
+    "acoustic_model": "VITS posterior encoder + flow prior + monotonic alignment search; character-level text input",
+    "vocoder_or_codec": "HiFi-GAN (adversarial) decoder, integrated end-to-end",
+    "intermediate_representation": "latent linear spectrogram (VAE posterior)",
+    "sample_rate_hz": null,
+    "languages": [
+      "ga"
+    ],
+    "training_data": "Mozilla Common Voice Irish recordings",
+    "speaker_config": "single",
+    "distinctive_artifacts": [
+      "normalizing-flow artifacts",
+      "metallic HiFi-GAN resonance",
+      "vocoder HF noise"
+    ],
+    "use_cases": [
+      "Coqui Irish (Gaeilge) TTS",
+      "single-speaker VITS synthesis"
+    ],
+    "notes": "Coqui TTS; Irish VITS (broad/slender consonant distinctions learned implicitly)"
+  },
+  "tts_models_hr_cv_vits": {
+    "architecture_family": "VITS end-to-end (VAE + normalizing flows + adversarial)",
+    "acoustic_model": "VITS posterior encoder + flow prior + monotonic alignment search; character-level text input",
+    "vocoder_or_codec": "HiFi-GAN (adversarial) decoder, integrated end-to-end",
+    "intermediate_representation": "latent linear spectrogram (VAE posterior)",
+    "sample_rate_hz": null,
+    "languages": [
+      "hr"
+    ],
+    "training_data": "Mozilla Common Voice Croatian recordings",
+    "speaker_config": "single",
+    "distinctive_artifacts": [
+      "phase smearing",
+      "over-regularised spectral envelopes",
+      "prosodic smoothing"
+    ],
+    "use_cases": [
+      "Coqui Croatian TTS",
+      "single-speaker VITS synthesis"
+    ],
+    "notes": "Coqui TTS; Croatian VITS with diacritic-aware character encoding"
+  },
+  "tts_models_hu_css10_vits": {
+    "architecture_family": "VITS end-to-end (VAE + normalizing flows + adversarial)",
+    "acoustic_model": "VITS posterior encoder + flow prior + monotonic alignment search; character-level text input",
+    "vocoder_or_codec": "HiFi-GAN (adversarial) decoder, integrated end-to-end",
+    "intermediate_representation": "latent linear spectrogram (VAE posterior)",
+    "sample_rate_hz": null,
+    "languages": [
+      "hu"
+    ],
+    "training_data": "CSS10 single-speaker Hungarian dataset",
+    "speaker_config": "single",
+    "distinctive_artifacts": [
+      "mechanical vibrato on sustained syllables",
+      "pitch quantisation",
+      "prosodic smoothing"
+    ],
+    "use_cases": [
+      "Coqui Hungarian TTS",
+      "single-speaker VITS synthesis"
+    ],
+    "notes": "Coqui TTS; Hungarian VITS (vowel harmony + agglutination)"
+  },
+  "tts_models_it_mai_female_glow-tts": {
+    "architecture_family": "Glow-TTS non-autoregressive flow-based",
+    "acoustic_model": "Glow-based invertible 1x1 conv decoder + monotonic alignment search for duration",
+    "vocoder_or_codec": "HiFi-GAN (external)",
+    "intermediate_representation": "mel-spectrogram",
+    "sample_rate_hz": null,
+    "languages": [
+      "it"
+    ],
+    "training_data": "MAI Italian single-speaker female dataset",
+    "speaker_config": "single",
+    "distinctive_artifacts": [
+      "mel over-smoothing",
+      "vocoder HF noise",
+      "prosodic smoothing"
+    ],
+    "use_cases": [
+      "Coqui Italian (female) Glow-TTS"
+    ],
+    "notes": "Coqui TTS; Italian Glow-TTS with female voice"
+  },
+  "tts_models_it_mai_female_vits": {
+    "architecture_family": "VITS end-to-end (VAE + normalizing flows + adversarial)",
+    "acoustic_model": "VITS posterior encoder + flow prior + monotonic alignment search; character-level text input",
+    "vocoder_or_codec": "HiFi-GAN (adversarial) decoder, integrated end-to-end",
+    "intermediate_representation": "latent linear spectrogram (VAE posterior)",
+    "sample_rate_hz": null,
+    "languages": [
+      "it"
+    ],
+    "training_data": "MAI Italian single-speaker female dataset",
+    "speaker_config": "single",
+    "distinctive_artifacts": [
+      "phase-distortion artifacts in heavy fricatives",
+      "over-regularised spectral envelopes",
+      "prosodic smoothing"
+    ],
+    "use_cases": [
+      "Coqui Italian (female) TTS",
+      "single-speaker VITS synthesis"
+    ],
+    "notes": "Coqui TTS; Italian VITS with female voice"
+  },
+  "tts_models_it_mai_male_glow-tts": {
+    "architecture_family": "Glow-TTS non-autoregressive flow-based",
+    "acoustic_model": "Glow-based invertible 1x1 conv decoder + monotonic alignment search for duration",
+    "vocoder_or_codec": "GAN-based waveform generator (external)",
+    "intermediate_representation": "mel-spectrogram",
+    "sample_rate_hz": null,
+    "languages": [
+      "it"
+    ],
+    "training_data": "MAI Italian single-speaker male dataset",
+    "speaker_config": "single",
+    "distinctive_artifacts": [
+      "low-frequency mel over-smoothing",
+      "pitch quantisation",
+      "slightly flattened intonation contours"
+    ],
+    "use_cases": [
+      "Coqui Italian (male) Glow-TTS"
+    ],
+    "notes": "Coqui TTS; Italian Glow-TTS with male voice"
+  },
+  "tts_models_it_mai_male_vits": {
+    "architecture_family": "VITS end-to-end (VAE + normalizing flows + adversarial)",
+    "acoustic_model": "VITS posterior encoder + flow prior + monotonic alignment search; character-level text input",
+    "vocoder_or_codec": "HiFi-GAN (adversarial) decoder, integrated end-to-end",
+    "intermediate_representation": "latent linear spectrogram (VAE posterior)",
+    "sample_rate_hz": null,
+    "languages": [
+      "it"
+    ],
+    "training_data": "MAI Italian single-speaker male dataset",
+    "speaker_config": "single",
+    "distinctive_artifacts": [
+      "metallic resonance on sustained low pitches",
+      "HiFi-GAN HF noise",
+      "prosodic smoothing"
+    ],
+    "use_cases": [
+      "Coqui Italian (male) TTS",
+      "single-speaker VITS synthesis"
+    ],
+    "notes": "Coqui TTS; Italian VITS with male voice"
+  },
+  "tts_models_lt_cv_vits": {
+    "architecture_family": "VITS end-to-end (VAE + normalizing flows + adversarial)",
+    "acoustic_model": "VITS posterior encoder + flow prior + monotonic alignment search; character-level text input",
+    "vocoder_or_codec": "HiFi-GAN (adversarial) decoder, integrated end-to-end",
+    "intermediate_representation": "latent linear spectrogram (VAE posterior)",
+    "sample_rate_hz": null,
+    "languages": [
+      "lt"
+    ],
+    "training_data": "Mozilla Common Voice Lithuanian recordings",
+    "speaker_config": "single",
+    "distinctive_artifacts": [
+      "slight prosodic flattening",
+      "HiFi-GAN HF hiss",
+      "over-regularised spectral envelopes"
+    ],
+    "use_cases": [
+      "Coqui Lithuanian TTS",
+      "single-speaker VITS synthesis"
+    ],
+    "notes": "Coqui TTS; Lithuanian VITS"
+  },
+  "tts_models_lv_cv_vits": {
+    "architecture_family": "VITS end-to-end (VAE + normalizing flows + adversarial)",
+    "acoustic_model": "VITS posterior encoder + flow prior + monotonic alignment search; character-level text input",
+    "vocoder_or_codec": "HiFi-GAN (adversarial) decoder, integrated end-to-end",
+    "intermediate_representation": "latent linear spectrogram (VAE posterior)",
+    "sample_rate_hz": null,
+    "languages": [
+      "lv"
+    ],
+    "training_data": "Mozilla Common Voice Latvian recordings",
+    "speaker_config": "single",
+    "distinctive_artifacts": [
+      "adversarial-vocoder phase artifacts in unvoiced consonants",
+      "over-regularised spectral envelopes",
+      "prosodic smoothing"
+    ],
+    "use_cases": [
+      "Coqui Latvian TTS",
+      "single-speaker VITS synthesis"
+    ],
+    "notes": "Coqui TTS; Latvian VITS (diacritics + tonal features handled implicitly)"
+  },
+  "tts_models_mt_cv_vits": {
+    "architecture_family": "VITS end-to-end (VAE + normalizing flows + adversarial)",
+    "acoustic_model": "VITS posterior encoder + flow prior + monotonic alignment search; character-level text input",
+    "vocoder_or_codec": "HiFi-GAN (adversarial) decoder, integrated end-to-end",
+    "intermediate_representation": "latent linear spectrogram (VAE posterior)",
+    "sample_rate_hz": null,
+    "languages": [
+      "mt"
+    ],
+    "training_data": "Mozilla Common Voice Maltese recordings",
+    "speaker_config": "single",
+    "distinctive_artifacts": [
+      "phase smearing in high frequencies",
+      "vocoder HF noise",
+      "prosodic smoothing"
+    ],
+    "use_cases": [
+      "Coqui Maltese TTS",
+      "single-speaker VITS synthesis"
+    ],
+    "notes": "Coqui TTS; Maltese VITS (Latin + Arabic-derived character mix)"
+  },
+  "tts_models_multilingual_multi-dataset_bark": {
+    "architecture_family": "multi-stage autoregressive transformer (GPT-style, Bark)",
+    "acoustic_model": "semantic + coarse acoustic + fine acoustic AR stack",
+    "vocoder_or_codec": "EnCodec neural audio codec",
+    "intermediate_representation": "EnCodec discrete tokens (semantic + acoustic)",
+    "sample_rate_hz": null,
+    "languages": [
+      "multilingual"
+    ],
+    "training_data": "multi-dataset multilingual corpora (speech + music + SFX)",
+    "speaker_config": "multi (speaker-prompt conditioning)",
+    "distinctive_artifacts": [
+      "cross-lingual semantic hallucinations",
+      "background-noise generation",
+      "EnCodec quantisation artifacts",
+      "vocoder HF noise"
+    ],
+    "use_cases": [
+      "multilingual text-to-audio (speech + music + SFX)",
+      "prompt-conditioned synthesis"
+    ],
+    "notes": "Coqui TTS packaging of Suno Bark fine-tuned on multi-dataset multilingual corpora"
+  },
+  "tts_models_multilingual_multi-dataset_xtts_v1.1": {
+    "architecture_family": "autoregressive transformer (XTTS GPT-style)",
+    "acoustic_model": "GPT-style AR transformer generating speech codes conditioned on text + reference speaker embedding",
+    "vocoder_or_codec": "UnivNet neural vocoder (same Tortoise pipeline: diffusion model → mel → UnivNet waveform)",
+    "intermediate_representation": "discrete speech codes",
+    "sample_rate_hz": null,
+    "languages": [
+      "multilingual (16+ languages including en, es, fr, de, it, pt, pl, tr, ru, nl, cs, ar, zh, ja, hi, hu, ko)"
+    ],
+    "training_data": "large multilingual multi-speaker dataset",
+    "speaker_config": "zero-shot clone (~6 s reference)",
+    "distinctive_artifacts": [
+      "attention-alignment instability",
+      "codec compression artifacts",
+      "prosodic smoothing"
+    ],
+    "use_cases": [
+      "open-source multilingual zero-shot cloning",
+      "cross-lingual synthesis"
+    ],
+    "notes": "Coqui XTTS v1.1; foundation for later XTTS v2"
+  },
+  "tts_models_multilingual_multi-dataset_xtts_v2": {
+    "architecture_family": "autoregressive transformer (XTTS GPT-style, v2)",
+    "acoustic_model": "refined XTTS GPT-style AR decoder with improved training data and architectural tweaks",
+    "vocoder_or_codec": "HiFi-GAN",
+    "intermediate_representation": "discrete speech codes",
+    "sample_rate_hz": null,
+    "languages": [
+      "multilingual (17 languages)"
+    ],
+    "training_data": "expanded multilingual multi-speaker dataset",
+    "speaker_config": "zero-shot clone (~6 s reference)",
+    "distinctive_artifacts": [
+      "discrete-tokenizer phase distortion",
+      "pitch quantisation",
+      "slightly flattened intonation contours"
+    ],
+    "use_cases": [
+      "open-source multilingual zero-shot cloning (most widely used version)",
+      "cross-lingual synthesis"
+    ],
+    "notes": "Coqui XTTS v2; improved over v1.1 in fidelity and speaker similarity"
+  },
+  "tts_models_pl_mai_female_vits": {
+    "architecture_family": "VITS end-to-end (VAE + normalizing flows + adversarial)",
+    "acoustic_model": "VITS posterior encoder + flow prior + monotonic alignment search; character-level text input",
+    "vocoder_or_codec": "HiFi-GAN (adversarial) decoder, integrated end-to-end",
+    "intermediate_representation": "latent linear spectrogram (VAE posterior)",
+    "sample_rate_hz": null,
+    "languages": [
+      "pl"
+    ],
+    "training_data": "MAI Polish single-speaker female dataset",
+    "speaker_config": "single",
+    "distinctive_artifacts": [
+      "phase-distortion artifacts in heavy fricatives",
+      "prosodic smoothing",
+      "reduced pitch variability"
+    ],
+    "use_cases": [
+      "Coqui Polish (female) TTS",
+      "single-speaker VITS synthesis"
+    ],
+    "notes": "Coqui TTS; Polish VITS with female voice (consonant clusters handled implicitly)"
+  },
+  "tts_models_pt_cv_vits": {
+    "architecture_family": "VITS end-to-end (VAE + normalizing flows + adversarial)",
+    "acoustic_model": "VITS posterior encoder + flow prior + monotonic alignment search; character-level text input",
+    "vocoder_or_codec": "HiFi-GAN (adversarial) decoder, integrated end-to-end",
+    "intermediate_representation": "latent linear spectrogram (VAE posterior)",
+    "sample_rate_hz": null,
+    "languages": [
+      "pt"
+    ],
+    "training_data": "Mozilla Common Voice Portuguese recordings",
+    "speaker_config": "single",
+    "distinctive_artifacts": [
+      "mechanical vibrato on sustained syllables",
+      "over-regularised spectral envelopes",
+      "prosodic smoothing"
+    ],
+    "use_cases": [
+      "Coqui Portuguese TTS",
+      "single-speaker VITS synthesis"
+    ],
+    "notes": "Coqui TTS; Portuguese VITS (nasal vowels handled implicitly)"
+  },
+  "tts_models_ro_cv_vits": {
+    "architecture_family": "VITS end-to-end (VAE + normalizing flows + adversarial)",
+    "acoustic_model": "VITS posterior encoder + flow prior + monotonic alignment search; character-level text input",
+    "vocoder_or_codec": "HiFi-GAN (adversarial) decoder, integrated end-to-end",
+    "intermediate_representation": "latent linear spectrogram (VAE posterior)",
+    "sample_rate_hz": null,
+    "languages": [
+      "ro"
+    ],
+    "training_data": "Mozilla Common Voice Romanian corpus, single-speaker subset",
+    "speaker_config": "single",
+    "distinctive_artifacts": [
+      "normalizing-flow over-regularised spectral envelopes",
+      "occasional metallic resonance on sustained vowels",
+      "HiFi-GAN high-frequency adversarial noise"
+    ],
+    "use_cases": [
+      "Coqui Romanian TTS",
+      "single-speaker VITS synthesis"
+    ],
+    "notes": "End-to-end VITS for Romanian; handles Romanian diacritical marks (ă, â, î, ș, ț) via character-level input."
+  },
+  "tts_models_sk_cv_vits": {
+    "architecture_family": "VITS end-to-end (VAE + normalizing flows + adversarial)",
+    "acoustic_model": "VITS posterior encoder + flow prior + monotonic alignment search; character-level text input",
+    "vocoder_or_codec": "HiFi-GAN (adversarial) decoder, integrated end-to-end",
+    "intermediate_representation": "latent linear spectrogram (VAE posterior)",
+    "sample_rate_hz": null,
+    "languages": [
+      "sk"
+    ],
+    "training_data": "Mozilla Common Voice Slovak corpus, single-speaker subset",
+    "speaker_config": "single",
+    "distinctive_artifacts": [
+      "phoneme-to-character mapping artefacts",
+      "prosodic smoothing and reduced pitch variability",
+      "HiFi-GAN high-frequency adversarial noise"
+    ],
+    "use_cases": [
+      "Coqui Slovak TTS",
+      "single-speaker VITS synthesis"
+    ],
+    "notes": "End-to-end VITS for Slovak; handles Slovak diacritics and consonant clusters via character-level input."
+  },
+  "tts_models_sl_cv_vits": {
+    "architecture_family": "VITS end-to-end (VAE + normalizing flows + adversarial)",
+    "acoustic_model": "VITS posterior encoder + flow prior + monotonic alignment search; character-level text input",
+    "vocoder_or_codec": "HiFi-GAN (adversarial) decoder, integrated end-to-end",
+    "intermediate_representation": "latent linear spectrogram (VAE posterior)",
+    "sample_rate_hz": null,
+    "languages": [
+      "sl"
+    ],
+    "training_data": "Mozilla Common Voice Slovenian corpus, single-speaker subset",
+    "speaker_config": "single",
+    "distinctive_artifacts": [
+      "phase-distortion artefacts in fricatives",
+      "normalizing-flow spectral over-regularisation",
+      "HiFi-GAN adversarial high-frequency noise"
+    ],
+    "use_cases": [
+      "Coqui Slovenian TTS",
+      "single-speaker VITS synthesis"
+    ],
+    "notes": "End-to-end VITS for Slovenian; character-level input covers Slovenian dual-number morphology and tonal-accent orthography."
+  },
+  "tts_models_sv_cv_vits": {
+    "architecture_family": "VITS end-to-end (VAE + normalizing flows + adversarial)",
+    "acoustic_model": "VITS posterior encoder + flow prior + monotonic alignment search; character-level text input",
+    "vocoder_or_codec": "HiFi-GAN (adversarial) decoder, integrated end-to-end",
+    "intermediate_representation": "latent linear spectrogram (VAE posterior)",
+    "sample_rate_hz": null,
+    "languages": [
+      "sv"
+    ],
+    "training_data": "Mozilla Common Voice Swedish corpus, single-speaker subset",
+    "speaker_config": "single",
+    "distinctive_artifacts": [
+      "pitch quantisation on tonal word accents",
+      "slight prosodic flattening on long utterances",
+      "HiFi-GAN high-frequency adversarial noise"
+    ],
+    "use_cases": [
+      "Coqui Swedish TTS",
+      "single-speaker VITS synthesis"
+    ],
+    "notes": "End-to-end VITS for Swedish; learned prosodic representation partially captures Swedish pitch-accent (accent 1 vs accent 2)."
+  },
+  "tts_models_tr_common-voice_glow-tts": {
+    "architecture_family": "Glow-TTS flow-based acoustic model + external HiFi-GAN vocoder",
+    "acoustic_model": "Glow-TTS normalizing-flow acoustic model with monotonic alignment search; non-autoregressive parallel mel generation",
+    "vocoder_or_codec": "HiFi-GAN neural vocoder (external, loaded separately)",
+    "intermediate_representation": "mel-spectrogram (80-bin)",
+    "sample_rate_hz": null,
+    "languages": [
+      "tr"
+    ],
+    "training_data": "Mozilla Common Voice Turkish corpus, single-speaker subset",
+    "speaker_config": "single",
+    "distinctive_artifacts": [
+      "over-smoothed mel-spectrograms vs autoregressive references",
+      "flow-model prosody flattening",
+      "external HiFi-GAN adversarial noise in unvoiced regions"
+    ],
+    "use_cases": [
+      "Coqui Turkish TTS",
+      "parallel non-autoregressive synthesis"
+    ],
+    "notes": "Non-autoregressive Glow-TTS for Turkish; the flow model provides stable monotonic alignment across long agglutinative word forms and vowel-harmony patterns."
+  },
+  "tts_models_uk_mai_glow-tts": {
+    "architecture_family": "Glow-TTS flow-based acoustic model + external HiFi-GAN vocoder",
+    "acoustic_model": "Glow-TTS normalizing-flow acoustic model with monotonic alignment search; non-autoregressive parallel mel generation",
+    "vocoder_or_codec": "HiFi-GAN neural vocoder (external, loaded separately)",
+    "intermediate_representation": "mel-spectrogram (80-bin)",
+    "sample_rate_hz": null,
+    "languages": [
+      "uk"
+    ],
+    "training_data": "MAI Ukrainian speech corpus, single-speaker",
+    "speaker_config": "single",
+    "distinctive_artifacts": [
+      "over-smoothed mel-spectrograms in unvoiced regions",
+      "reduced pitch variability from flow prior",
+      "HiFi-GAN adversarial high-frequency noise"
+    ],
+    "use_cases": [
+      "Coqui Ukrainian TTS",
+      "parallel non-autoregressive synthesis"
+    ],
+    "notes": "Non-autoregressive Glow-TTS for Ukrainian Cyrillic; monotonic alignment search gives stable durations across free word order."
+  },
+  "tts_models_uk_mai_vits": {
+    "architecture_family": "VITS end-to-end (VAE + normalizing flows + adversarial)",
+    "acoustic_model": "VITS posterior encoder + flow prior + monotonic alignment search; character-level text input",
+    "vocoder_or_codec": "HiFi-GAN (adversarial) decoder, integrated end-to-end",
+    "intermediate_representation": "latent linear spectrogram (VAE posterior)",
+    "sample_rate_hz": null,
+    "languages": [
+      "uk"
+    ],
+    "training_data": "MAI Ukrainian speech corpus, single-speaker",
+    "speaker_config": "single",
+    "distinctive_artifacts": [
+      "metallic resonance on sustained pitches",
+      "HiFi-GAN high-frequency adversarial noise",
+      "normalizing-flow spectral over-regularisation"
+    ],
+    "use_cases": [
+      "Coqui Ukrainian TTS",
+      "single-speaker VITS synthesis"
+    ],
+    "notes": "End-to-end VITS for Ukrainian Cyrillic; no external vocoder, everything produced by the integrated HiFi-GAN decoder."
+  },
+  "tts_models_zh-CN_baker_tacotron2-DDC-GST": {
+    "architecture_family": "Tacotron2 autoregressive mel predictor with Double Decoder Consistency and Global Style Tokens (GST)",
+    "acoustic_model": "Tacotron2 encoder–location-sensitive-attention–autoregressive decoder with DDC (parallel coarse + fine decoder regularisation) and a GST reference encoder + style-token layer for prosody conditioning",
+    "vocoder_or_codec": "external HiFi-GAN (adversarial) vocoder, loaded separately at inference",
+    "intermediate_representation": "mel-spectrogram (80-bin), plus learned GST style embedding",
+    "sample_rate_hz": null,
+    "languages": [
+      "zh-CN"
+    ],
+    "training_data": "Baker (标贝) Chinese female-speaker corpus, ~12 h studio-quality Mandarin",
+    "speaker_config": "single",
+    "distinctive_artifacts": [
+      "attention-alignment failures and phoneme repetitions on long utterances",
+      "style-token quantisation producing discrete prosodic modes",
+      "Tacotron2 mel over-smoothing in low-energy frames",
+      "HiFi-GAN high-frequency adversarial noise"
+    ],
+    "use_cases": [
+      "Mandarin Chinese TTS with reference-based style transfer",
+      "expressive / prosody-controllable single-speaker Chinese synthesis"
+    ],
+    "notes": "GST reference encoder lets users transfer prosody from a reference clip or pick style-token embeddings at inference; DDC stabilises attention vs plain Tacotron2."
+  },
+  "vixTTS": {
+    "architecture_family": "XTTS-family multilingual autoregressive TTS with speaker conditioning",
+    "acoustic_model": "GPT-style autoregressive token model over audio codec tokens, conditioned on text + reference-speaker embedding; XTTS/VITS lineage",
+    "vocoder_or_codec": "neural audio codec decoder (XTTS-style) feeding a HiFi-GAN-based waveform generator",
+    "intermediate_representation": "discrete audio-codec tokens + speaker embedding",
+    "sample_rate_hz": null,
+    "languages": [
+      "vi",
+      "multilingual"
+    ],
+    "training_data": "XTTS multilingual multi-speaker base with Vietnamese-focused fine-tuning",
+    "speaker_config": "zero-shot clone",
+    "distinctive_artifacts": [
+      "aggressive-quantisation compression artefacts from the codec",
+      "slightly mechanical high-frequency colouring",
+      "discrete-token prosody jitter on long sentences",
+      "HiFi-GAN adversarial high-frequency noise"
+    ],
+    "use_cases": [
+      "Vietnamese-focused multilingual TTS",
+      "low-latency voice cloning from short reference clips",
+      "open-source deployment of XTTS-style synthesis"
+    ],
+    "notes": "Vietnamese-focused adaptation of the XTTS multilingual framework; optimised for low-latency inference with noticeable codec compression fingerprints."
+  },
+  "zonosTTS-v0.1": {
+    "architecture_family": "transformer autoregressive TTS with fine-grained attribute conditioning",
+    "acoustic_model": "transformer decoder autoregressively generating audio-codec tokens, conditioned on text plus explicit control vectors (speaking rate, pitch, emotion, style)",
+    "vocoder_or_codec": "Descript Audio Codec (DAC) — high-bitrate autoencoder; transformer predicts DAC tokens autoregressively",
+    "intermediate_representation": "discrete audio-codec tokens",
+    "sample_rate_hz": null,
+    "languages": [
+      "en"
+    ],
+    "training_data": "curated studio speech recordings with attribute annotations (undisclosed mix)",
+    "speaker_config": "zero-shot clone (reference audio embedding) and multi-speaker preset",
+    "distinctive_artifacts": [
+      "unstable prosody and frequent alignment failures typical of under-trained autoregressive models",
+      "mechanical artefacts and temporal over-smoothing",
+      "subtle phase artefacts from codec reconstruction",
+      "discrete attribute-conditioning mode-switches between style settings"
+    ],
+    "use_cases": [
+      "controllable English TTS with explicit rate / pitch / emotion / style sliders",
+      "research on fine-grained attribute conditioning"
+    ],
+    "notes": "Early v0.1 release; notable for exposing explicit controllability dimensions but still exhibits under-training instabilities."
+  }
+}
